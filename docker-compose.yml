@@ -1,0 +1,48 @@
+services:
+  frontend:
+    build: ./progym-frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    restart: always
+    networks:
+      - progym-network
+
+  backend:
+    build: ./progym-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - DB_HOST=db
+      - DB_USER=root
+      - DB_PASS=yourpassword
+      - DB_NAME=progymdb
+      - JWT_SECRET=yourjwtsecret
+    depends_on:
+      - db
+    restart: always
+    networks:
+      - progym-network
+
+  db:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: yourpassword
+    volumes:
+      - mysql-data:/var/lib/mysql     # Persist MySQL data (important)
+      - ./progymdb.sql:/docker-entrypoint-initdb.d/progymdb.sql  # Auto-run SQL to create database/tables
+    restart: always
+    networks:
+      - progym-network
+
+# Declare named volumes for MySQL data persistence
+volumes:
+  mysql-data:
+
+# Declare network so containers can talk to each other
+networks:
+  progym-network:
+    driver: bridge
