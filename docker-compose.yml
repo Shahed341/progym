@@ -1,10 +1,13 @@
+version: '3.8'
+
 services:
   frontend:
     build: ./progym-frontend
     ports:
       - "3000:3000"
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy   # ✅ Wait for backend to be healthy
     restart: always
     networks:
       - progym-network
@@ -16,33 +19,44 @@ services:
     environment:
       - DB_HOST=db
       - DB_USER=root
-      - DB_PASS=yourpassword
+      - DB_PASS=shahed
       - DB_NAME=progymdb
       - JWT_SECRET=yourjwtsecret
     depends_on:
-      - db
+      db:
+        condition: service_healthy    # ✅ Wait for database to be healthy
     restart: always
     networks:
       - progym-network
+    healthcheck:                      # ✅ Backend also has a healthcheck
+      test: ["CMD", "curl", "-f", "http://localhost:5000"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
 
   db:
     image: mysql:8.0
     ports:
       - "3306:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: yourpassword
+      MYSQL_ROOT_PASSWORD: shahed
     volumes:
-      - mysql-data:/var/lib/mysql     # Persist MySQL data (important)
-      - ./progymdb.sql:/docker-entrypoint-initdb.d/progymdb.sql  # Auto-run SQL to create database/tables
+      - mysql-data:/var/lib/mysql           # Persist MySQL data
+      - ./progymdb.sql:/docker-entrypoint-initdb.d/progymdb.sql  # Initialize DB
     restart: always
     networks:
       - progym-network
+    healthcheck:                            # ✅ Added healthcheck for MySQL
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
-# Declare named volumes for MySQL data persistence
 volumes:
-  mysql-data:
+  mysql-data:  # ✅ Persistent volume for DB
 
-# Declare network so containers can talk to each other
 networks:
   progym-network:
     driver: bridge
