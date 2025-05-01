@@ -22,13 +22,13 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: 'Email already exists' });
     }
 
-    // Step 3: Hash the password
+    // Step 3: Hash the password securely using bcrypt
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Step 4: Insert the new user into the database
+    // Step 4: Insert the new user with default role 'user'
     await db.promise().query(
-      'INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
-      [username, email, hashedPassword]
+      'INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)',
+      [username, email, hashedPassword, 'user'] // Force role to 'user' regardless of frontend input
     );
 
     // Step 5: Respond with success
@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
   }
 
   try {
-    // Step 2: Check if user exists
+    // Step 2: Check if user exists in the database
     const [userResult] = await db.promise().query(
       'SELECT * FROM users WHERE email = ?',
       [email]
@@ -61,19 +61,21 @@ const loginUser = async (req, res) => {
 
     const user = userResult[0];
 
-    // Step 3: Compare entered password with hashed password
+    // Step 3: Compare input password with hashed password from DB
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    // Step 4: Respond with user data (token generation will be added later)
+    // Step 4: Respond with user details
+    // This is where you'd normally generate a JWT token or session
     return res.status(200).json({ 
       message: 'Login successful', 
       user: {
         id: user.id,
         username: user.username,
-        email: user.email
+        email: user.email,
+        role: user.role // Include role so frontend can adapt UI based on user type
       }
     });
 
@@ -83,7 +85,31 @@ const loginUser = async (req, res) => {
   }
 };
 
+// Controller: Upgrade user to premium
+const upgradeToPremium = async (req, res) => {
+  const { userId } = req.body;
+
+  if (!userId) {
+    return res.status(400).json({ message: 'User ID required' });
+  }
+
+  try {
+    await db.promise().query(
+      'UPDATE users SET role = ? WHERE id = ?',
+      ['premium', userId]
+    );
+
+    return res.status(200).json({ message: 'User upgraded to premium' });
+
+  } catch (error) {
+    console.error('Error upgrading user:', error);
+    return res.status(500).json({ message: 'Server error during upgrade' });
+  }
+};
+
+// Export all controllers
 module.exports = {
   registerUser,
   loginUser,
+  upgradeToPremium, // ✅ Add this
 };
