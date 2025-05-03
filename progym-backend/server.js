@@ -4,25 +4,25 @@ require('dotenv').config();
 
 const app = express();
 
-// Middlewares
-app.use(cors());
-app.use(express.json()); // Very important to parse JSON
+// ====== MIDDLEWARES ======
+app.use(cors()); // Enable CORS for all origins
+app.use(express.json()); // Parse incoming JSON requests
 
-// Import routes
+// ====== IMPORT ROUTES ======
 const authRoutes = require('./routes/auth');
+const gymbotRoutes = require('./routes/gymbot'); // <-- New GymBot route
 
-// Use routes
+// ====== USE ROUTES ======
 app.use('/api/auth', authRoutes);
+app.use('/api/gymbot', gymbotRoutes); // <-- Mount GymBot route
 
-// Basic route
+// ====== BASIC TEST ROUTE ======
 app.get('/', (req, res) => {
   res.send('ProGYM Backend Running');
 });
 
-// Port
+// ====== START SERVER ======
 const PORT = process.env.PORT || 5000;
-
-// Start server
 app.listen(PORT, () => {
   console.log(`Backend server running on http://localhost:${PORT}`);
 });

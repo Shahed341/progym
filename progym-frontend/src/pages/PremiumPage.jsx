@@ -22,7 +22,7 @@ function PremiumPage() {
 
   return (
     <div style={premiumStyles.container}>
-      {/* Hero section */}
+      {/* ===== SIMPLE HERO SECTION (no background) ===== */}
       <section style={premiumStyles.hero}>
         <h1 style={premiumStyles.heroTitle}>Welcome to the Premium Experience</h1>
         <p style={premiumStyles.heroSubtitle}>
@@ -30,7 +30,7 @@ function PremiumPage() {
         </p>
       </section>
 
-      {/* Feature list section */}
+      {/* ===== PREMIUM FEATURES GRID ===== */}
       <section>
         <h2 style={premiumStyles.sectionTitle}>Premium Feature Access</h2>
         <div style={premiumStyles.featureGrid}>
@@ -38,9 +38,12 @@ function PremiumPage() {
             <Link
               key={idx}
               to={feature.path}
-              style={premiumStyles.featureButton}
+              style={premiumStyles.featureCardLink}
             >
-              {feature.title}
+              <div style={premiumStyles.featureCard}>
+                <h3>{feature.title}</h3>
+                <p>Click to explore</p>
+              </div>
             </Link>
           ))}
         </div>

@@ -7,7 +7,7 @@ services:
       - "3000:3000"
     depends_on:
       backend:
-        condition: service_healthy   # ✅ Wait for backend to be healthy
+        condition: service_healthy
     restart: always
     networks:
       - progym-network
@@ -16,19 +16,15 @@ services:
     build: ./progym-backend
     ports:
       - "5000:5000"
-    environment:
-      - DB_HOST=db
-      - DB_USER=root
-      - DB_PASS=shahed
-      - DB_NAME=progymdb
-      - JWT_SECRET=yourjwtsecret
+    env_file:
+      - ./progym-backend/.env
     depends_on:
       db:
-        condition: service_healthy    # ✅ Wait for database to be healthy
+        condition: service_healthy
     restart: always
     networks:
       - progym-network
-    healthcheck:                      # ✅ Backend also has a healthcheck
+    healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:5000"]
       interval: 10s
       timeout: 5s
@@ -42,12 +38,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: shahed
     volumes:
-      - mysql-data:/var/lib/mysql           # Persist MySQL data
-      - ./progymdb.sql:/docker-entrypoint-initdb.d/progymdb.sql  # Initialize DB
+      - mysql-data:/var/lib/mysql
+      - ./progymdb.sql:/docker-entrypoint-initdb.d/progymdb.sql
     restart: always
     networks:
       - progym-network
-    healthcheck:                            # ✅ Added healthcheck for MySQL
+    healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
       timeout: 5s
@@ -55,7 +51,7 @@ services:
       start_period: 30s
 
 volumes:
-  mysql-data:  # ✅ Persistent volume for DB
+  mysql-data:
 
 networks:
   progym-network:

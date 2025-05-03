@@ -2,86 +2,124 @@
 
 const homeStyles = {
   container: {
-    padding: '60px 20px',
-    maxWidth: '1200px',
-    margin: '0 auto',
-    color: '#212529', // Dark gray for better contrast
+    margin: '0',
+    padding: '0',
+    boxSizing: 'border-box',
+    overflowX: 'hidden',
+    fontFamily: 'Arial, sans-serif',
   },
 
-  // Hero Section
+  // ===== HERO SECTION =====
   hero: {
+    backgroundImage: "url('/images/HomeBG.jpg')",
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+    width: '100%',
+    minHeight: '100vh',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    padding: '0 20px', // left-right padding for breathing space
     textAlign: 'center',
-    padding: '80px 20px',
   },
+
+  heroOverlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    zIndex: 1,
+  },
+
+  heroContent: {
+    position: 'relative',
+    zIndex: 2,
+    color: '#fff',
+    maxWidth: '800px',
+    width: '100%',
+    padding: '20px',
+  },
+
   heroTitle: {
-    fontSize: '48px',
+    fontSize: 'clamp(2rem, 6vw, 3.5rem)', // responsive font size
     fontWeight: 'bold',
     marginBottom: '20px',
-    color: '#0d6efd', // Bootstrap primary blue for emphasis
   },
+
   heroSubtitle: {
-    fontSize: '20px',
-    marginBottom: '40px',
-    color: '#495057', // Medium-dark gray for readability
+    fontSize: 'clamp(1rem, 3vw, 1.5rem)',
+    marginBottom: '30px',
   },
+
   heroButtons: {
     display: 'flex',
     justifyContent: 'center',
-    gap: '20px',
     flexWrap: 'wrap',
-  },
-  primaryButton: {
-    padding: '12px 24px',
-    fontSize: '16px',
-    backgroundColor: '#007bff',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '8px',
-    textDecoration: 'none',
-  },
-  secondaryButton: {
-    padding: '12px 24px',
-    fontSize: '16px',
-    backgroundColor: '#6c757d',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '8px',
-    textDecoration: 'none',
+    gap: '15px',
+    marginTop: '20px',
   },
 
-  // Features
-  features: {
-    marginTop: '80px',
-    minHeight: '100vh', // Make feature section fill the viewport
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
+  primaryButton: {
+    backgroundColor: '#007bff',
+    color: '#fff',
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '8px',
+    textDecoration: 'none',
+    fontSize: '16px',
   },
+
+  secondaryButton: {
+    backgroundColor: '#6c757d',
+    color: '#fff',
+    padding: '12px 24px',
+    border: 'none',
+    borderRadius: '8px',
+    textDecoration: 'none',
+    fontSize: '16px',
+  },
+
+  // ===== FEATURES SECTION =====
+  features: {
+    padding: '60px 20px',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    boxSizing: 'border-box',
+  },
+
   sectionTitle: {
     textAlign: 'center',
     fontSize: '32px',
     marginBottom: '40px',
-    color: '#0d6efd', // Emphasized section title
+    color: '#0d6efd',
   },
+
   featureGrid: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
     gap: '30px',
   },
+
   featureCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Lighter background
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
     borderRadius: '12px',
     padding: '20px',
     textAlign: 'center',
     boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-    color: '#212529', // Dark text
+    color: '#212529',
   },
 
-  // Placeholder
+  // ===== PLACEHOLDER SECTION =====
   placeholderSection: {
-    marginTop: '100px',
+    marginTop: '80px',
+    padding: '0 20px',
     textAlign: 'center',
   },
+
   chartPlaceholder: {
     marginTop: '20px',
     height: '200px',
@@ -91,16 +129,18 @@ const homeStyles = {
     alignItems: 'center',
     justifyContent: 'center',
     fontStyle: 'italic',
-    color: '#6c757d', // Subtle placeholder text
+    color: '#6c757d',
   },
 
-  // Testimonials (Future)
+  // ===== TESTIMONIALS & LOCATION =====
   testimonials: {
     marginTop: '100px',
+    padding: '0 20px',
     textAlign: 'center',
   },
+
   comingSoon: {
-    color: '#6c757d', // Placeholder tone
+    color: '#6c757d',
     fontStyle: 'italic',
   },
 };

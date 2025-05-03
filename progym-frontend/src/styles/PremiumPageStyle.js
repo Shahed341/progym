@@ -2,55 +2,61 @@
 
 const premiumStyles = {
   container: {
-    padding: '40px 20px',
-    fontFamily: 'Segoe UI, sans-serif',
-    backgroundColor: '#f9f9f9',
-    color: '#333',
-  },
-  hero: {
-    textAlign: 'center',
-    padding: '60px 20px 30px',
-    backgroundColor: '#101820',
-    color: '#fff',
-    borderRadius: '12px',
-    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
-    marginBottom: '40px',
-  },
-  heroTitle: {
-    fontSize: '2.5rem',
-    fontWeight: 'bold',
-    marginBottom: '10px',
-  },
-  heroSubtitle: {
-    fontSize: '1.2rem',
-    maxWidth: '600px',
+    padding: '60px 20px',
+    maxWidth: '1200px',
     margin: '0 auto',
+    boxSizing: 'border-box',
   },
+
+  // Inside premiumStyles
+
+hero: {
+  textAlign: 'center',
+  padding: '60px 20px',
+  backgroundColor: '#f8f9fa',
+  borderRadius: '12px',
+  marginBottom: '40px',
+},
+
+heroTitle: {
+  fontSize: '36px',
+  fontWeight: 'bold',
+  color: '#0d6efd',
+  marginBottom: '10px',
+},
+
+heroSubtitle: {
+  fontSize: '18px',
+  color: '#495057',
+},
+
+
   sectionTitle: {
-    fontSize: '2rem',
-    fontWeight: '600',
+    fontSize: '28px',
     textAlign: 'center',
     marginBottom: '30px',
+    color: '#0d6efd',
   },
+
   featureGrid: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-    gap: '20px',
-    maxWidth: '1000px',
-    margin: '0 auto',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+    gap: '30px',
   },
-  featureButton: {
-    backgroundColor: '#007bff',
-    color: '#fff',
-    padding: '16px',
-    borderRadius: '10px',
+
+  featureCardLink: {
     textDecoration: 'none',
-    fontSize: '1.1rem',
-    fontWeight: '500',
-    boxShadow: '0 3px 8px rgba(0,0,0,0.1)',
-    transition: 'background-color 0.3s ease',
+  },
+
+  featureCard: {
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    borderRadius: '12px',
+    padding: '20px',
     textAlign: 'center',
-    display: 'block',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+    color: '#212529',
+    cursor: 'pointer',
+    transition: 'transform 0.2s ease',
   },
 };
 
