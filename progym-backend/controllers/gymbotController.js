@@ -5,8 +5,8 @@ const fetch = require('node-fetch');
 const askGymBot = async (req, res) => {
   const { message } = req.body;
 
-  // Log the received user message
-  console.log('[GymBot] Received message:', message);
+  // // Log the received user message
+  // console.log('[GymBot] Received message:', message);
 
   if (!message) {
     return res.status(400).json({ reply: 'No message provided.' });

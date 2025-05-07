@@ -5,16 +5,18 @@ require('dotenv').config();
 const app = express();
 
 // ====== MIDDLEWARES ======
-app.use(cors()); // Enable CORS for all origins
-app.use(express.json()); // Parse incoming JSON requests
+app.use(cors());
+app.use(express.json());
 
 // ====== IMPORT ROUTES ======
 const authRoutes = require('./routes/auth');
-const gymbotRoutes = require('./routes/gymbot'); // <-- New GymBot route
+const gymbotRoutes = require('./routes/gymbot');
+const workoutRoutes = require('./routes/workoutRoutes'); // ✅ ADD THIS
 
 // ====== USE ROUTES ======
 app.use('/api/auth', authRoutes);
-app.use('/api/gymbot', gymbotRoutes); // <-- Mount GymBot route
+app.use('/api/gymbot', gymbotRoutes);
+app.use('/api/workouts', workoutRoutes); // ✅ AND THIS
 
 // ====== BASIC TEST ROUTE ======
 app.get('/', (req, res) => {

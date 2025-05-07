@@ -15,6 +15,7 @@ import Login from './pages/Login';
 import Profile from './pages/Profile';
 import Upgrade from './pages/Upgrade';
 import PremiumPage from './pages/PremiumPage';
+import TrackWorkout from './pages/TrackWorkout'; // Import added
 
 // Premium feature pages (ensure the folder is lowercase: 'premium')
 import ProgressCharts from './pages/premium/ProgressCharts';
@@ -40,6 +41,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/upgrade" element={<Upgrade />} />
+          <Route path="/track-workout" element={<TrackWorkout />} /> {/* TrackWorkout route added */}
 
           {/* Premium landing */}
           <Route path="/premium" element={<PremiumPage />} />
