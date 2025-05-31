@@ -14,16 +14,16 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create WorkoutSessions table (optional if you're using this separately)
-CREATE TABLE IF NOT EXISTS workout_sessions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    workout_type VARCHAR(255) NOT NULL,
-    reps INT NOT NULL,
-    weight INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
+-- -- Create WorkoutSessions table (optional if you're using this separately)
+-- CREATE TABLE IF NOT EXISTS workout_sessions (
+--     id INT AUTO_INCREMENT PRIMARY KEY,
+--     user_id INT NOT NULL,
+--     workout_type VARCHAR(255) NOT NULL,
+--     reps INT NOT NULL,
+--     weight INT NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+-- );
 
 -- Create Workouts table (used by the Track Workout page)
 CREATE TABLE IF NOT EXISTS workouts (
