@@ -1,67 +1,73 @@
 // File: src/App.jsx
 
-import React, { useContext } from 'react'; // React core + context API
-import { Routes, Route } from 'react-router-dom'; // For page routing/navigation
+import React, { useContext } from 'react';
+import { Routes, Route } from 'react-router-dom';
 
-// Shared UI components
-import Navbar from './components/Navbar'; // Top navigation bar
-import Footer from './components/Footer'; // Bottom footer
+// Shared layout components
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 
-// User context to access logged-in user info
-import { UserContext } from './context/UserContext'; // Holds session-based user data
+// User session context
+import { UserContext } from './context/UserContext';
 
 // Public pages
-import Home from './pages/Home';             // Landing page
-import Register from './pages/Register';     // Registration form (connects to /api/auth/register)
-import Login from './pages/Login';           // Login form (connects to /api/auth/login)
-import Profile from './pages/Profile';       // Shows user info (uses GET /api/user or session)
-import Upgrade from './pages/Upgrade';       // Upgrades role via /api/auth/upgrade
-import PremiumPage from './pages/PremiumPage'; // Landing page for premium users
-import TrackWorkout from './pages/TrackWorkout'; // Workout tracker (connects to /api/workouts)
+import Home from './pages/Home';
+import Register from './pages/Register';
+import Login from './pages/Login';
+import Profile from './pages/Profile';
+import Upgrade from './pages/Upgrade';
+import TrackWorkout from './pages/TrackWorkout';
+import Exercises from './pages/Exercises';
+import SupplementGuide from './pages/SupplementGuide';
+import BulkingStrategy from './pages/BulkingStrategy';
+import CuttingStrategy from './pages/CuttingStrategy';
 
-// Premium feature pages (stored inside src/pages/premium/)
-import ProgressCharts from './pages/premium/ProgressCharts'; // Shows chart from /api/workouts
-import GymBot from './pages/premium/GymBot';                 // Chat interface (calls /api/gymbot)
-import MealPlanner from './pages/premium/MealPlanner';       // Pulls plans from /api/plan/meal
-import Supplements from './pages/premium/Supplements';       // Static or fetched data
-import Workouts from './pages/premium/Workouts';             // Workout plans from /api/plan/workout
+// Premium landing
+import PremiumPage from './pages/PremiumPage';
+
+// Premium feature pages
+import ProgressCharts from './pages/premium/ProgressCharts';
+import GymBot from './pages/premium/GymBot';
+import MealPlanner from './pages/premium/MealPlanner';
+import Supplements from './pages/premium/Supplements';
+import Workouts from './pages/premium/Workouts';
 
 function App() {
-  // Extract logged-in user info from context provider
-  const { user } = useContext(UserContext); // This can be used to control access or pass user props
+  const { user } = useContext(UserContext);
 
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      
-      {/* Navbar remains visible on all pages */}
+      {/* Header (always visible) */}
       <Navbar />
 
-      {/* Main route area where page components load */}
+      {/* Main routing zone */}
       <div style={{ flex: 1 }}>
         <Routes>
+          {/* === Public Routes === */}
+          <Route path="/" element={<Home user={user} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/upgrade" element={<Upgrade />} />
+          <Route path="/track-workout" element={<TrackWorkout />} />
+          <Route path="/exercises" element={<Exercises />} />
+          <Route path="/supplement-guide" element={<SupplementGuide />} />
+          <Route path="/bulking" element={<BulkingStrategy />} />
+          <Route path="/cutting" element={<CuttingStrategy />} />
 
-          {/* Public routes (no login required) */}
-          <Route path="/" element={<Home user={user} />} /> {/* Passes user as prop */}
-          <Route path="/register" element={<Register />} /> {/* Sends POST to /api/auth/register */}
-          <Route path="/login" element={<Login />} />       {/* Sends POST to /api/auth/login */}
-          <Route path="/profile" element={<Profile />} />   {/* Fetches from backend using user.id */}
-          <Route path="/upgrade" element={<Upgrade />} />   {/* Sends POST to /api/auth/upgrade */}
-          <Route path="/track-workout" element={<TrackWorkout />} /> {/* Sends POST/GET/DELETE to /api/workouts */}
-
-          {/* Premium features entry point */}
+          {/* === Premium Home === */}
           <Route path="/premium" element={<PremiumPage />} />
 
-          {/* Premium-only pages (assume frontend checks user.role === 'premium') */}
-          <Route path="/premium/progress-charts" element={<ProgressCharts />} /> {/* Calls /api/workouts for chart data */}
-          <Route path="/premium/gymbot" element={<GymBot />} />                 {/* Sends message to /api/gymbot */}
-          <Route path="/premium/meal-planner" element={<MealPlanner />} />     {/* Fetches meal plan from backend */}
-          <Route path="/premium/supplements" element={<Supplements />} />       {/* Static or fetched from /api/supplements */}
-          <Route path="/premium/workouts" element={<Workouts />} />             {/* Fetched from /api/plan/workout */}
-
+          {/* === Premium Subroutes === */}
+          <Route path="/premium/progress-charts" element={<ProgressCharts />} />
+          <Route path="/premium/gymbot" element={<GymBot />} />
+          <Route path="/premium/meal-planner" element={<MealPlanner />} />
+          <Route path="/premium/supplements" element={<Supplements />} />
+          <Route path="/premium/workouts" element={<Workouts />} />
         </Routes>
       </div>
 
-      {/* Footer remains visible on all pages */}
+      {/* Footer (always visible) */}
       <Footer />
     </div>
   );

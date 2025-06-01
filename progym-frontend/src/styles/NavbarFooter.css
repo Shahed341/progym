@@ -1,67 +1,66 @@
 /* Navbar Styles */
 .navbar {
-    background-color: #111;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 32px;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
-  
-  .logoText {
-    font-size: 24px;
-    font-weight: bold;
-    color: white;
-    text-decoration: none;
-  }
-  
+  background-color: #111827; /* dark navy */
+  color: #f3f4f6; /* light text */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 32px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(250, 204, 21, 0.1); /* soft gold shadow */
+}
+
+.logoText {
+  font-size: 24px;
+  font-weight: bold;
+  color: #facc15; /* royal gold */
+  text-decoration: none;
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+  margin: 0;
+  padding: 0;
+}
+
+.link {
+  color: #f3f4f6; /* light text */
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.link:hover {
+  color: #facc15; /* royal gold on hover */
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #111827;
+  color: #9ca3af; /* gray-400 */
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.footerText {
+  margin: 0;
+}
+
+/* Responsive Navbar */
+@media (max-width: 600px) {
   .navLinks {
-    list-style: none;
-    display: flex;
-    gap: 24px;
-    margin: 0;
-    padding: 0;
+    flex-direction: column;
+    gap: 12px;
   }
-  
-  .link {
-    color: #ddd;
-    text-decoration: none;
-    font-size: 16px;
-    font-weight: 500;
-    transition: color 0.3s ease;
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
   }
-  
-  .link:hover {
-    color: #00bfff;
-  }
-  
-  /* Footer Styles */
-  .footer {
-    background-color: #000;
-    color: #aaa;
-    text-align: center;
-    padding: 20px;
-    font-size: 14px;
-  }
-  
-  .footerText {
-    margin: 0;
-  }
-  
-  /* Responsive Navbar */
-  @media (max-width: 600px) {
-    .navLinks {
-      flex-direction: column;
-      gap: 12px;
-    }
-  
-    .navbar {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  }
-  
+}

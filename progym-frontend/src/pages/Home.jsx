@@ -1,4 +1,4 @@
-// src/pages/Home.jsx
+// File: src/pages/Home.jsx
 
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -26,11 +26,11 @@ function FeatureSection({ role }) {
           <h3>Calorie Tracker</h3>
           <p>Track your daily calorie intake and expenditure.</p>
         </Link>
-        <Link to="/exercise-categories" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
+        <Link to="/exercises" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
           <h3>Exercise Categories</h3>
           <p>Browse exercises by body part: Chest, Legs, Arms, Back, Core, etc.</p>
         </Link>
-        <Link to="/supplements" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
+        <Link to="/supplement-guide" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
           <h3>Supplements Guide</h3>
           <p>Learn about protein powders, creatine, BCAAs, and more.</p>
         </Link>
@@ -91,11 +91,9 @@ function Home({ user }) {
 
   return (
     <div style={homeStyles.container}>
-      {/* HERO SECTION: Full-screen with background image and overlay */}
-      {/* The background image is set in homeStyles.hero (public/images/HomeBG.jpg) */}
-      {/* A dark overlay adds contrast to make text readable */}
+      {/* HERO SECTION */}
       <section style={homeStyles.hero}>
-        <div style={homeStyles.heroOverlay}></div> {/* semi-transparent black layer */}
+        <div style={homeStyles.heroOverlay}></div>
         <div style={homeStyles.heroContent}>
           <h1 style={homeStyles.heroTitle}>Welcome to ProGYM</h1>
           <p style={homeStyles.heroSubtitle}>
@@ -121,11 +119,9 @@ function Home({ user }) {
       </section>
 
       {/* FEATURES SECTION */}
-      {/* Lists all workout, meal, and tracking features */}
       <FeatureSection role={role} />
 
       {/* PROGRESS CHART PLACEHOLDER */}
-      {/* Reserved for future live progress visualizations */}
       <section style={homeStyles.placeholderSection}>
         <h2 style={homeStyles.sectionTitle}>Live Progress Dashboard (Coming Soon)</h2>
         <div style={homeStyles.chartPlaceholder}>
@@ -134,14 +130,12 @@ function Home({ user }) {
       </section>
 
       {/* TESTIMONIAL PLACEHOLDER */}
-      {/* User transformation stories will be added here */}
       <section style={homeStyles.testimonials}>
         <h2 style={homeStyles.sectionTitle}>Success Stories</h2>
         <p style={homeStyles.comingSoon}>Real people. Real transformation. Coming soon.</p>
       </section>
 
       {/* LOCATION FOOTER */}
-      {/* Gym address displayed here */}
       <section style={homeStyles.testimonials}>
         <h2 style={homeStyles.sectionTitle}>ProGYM Location</h2>
         <p style={homeStyles.comingSoon}>1234 East West Canada</p>

@@ -7,6 +7,8 @@ const homeStyles = {
     boxSizing: 'border-box',
     overflowX: 'hidden',
     fontFamily: 'Arial, sans-serif',
+    background: 'linear-gradient(135deg, #0f0f0f, #1a1a1a)', // matt black gradient
+    color: '#f3f4f6'
   },
 
   // ===== HERO SECTION =====
@@ -21,7 +23,7 @@ const homeStyles = {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
-    padding: '0 20px', // left-right padding for breathing space
+    padding: '0 20px',
     textAlign: 'center',
   },
 
@@ -38,21 +40,23 @@ const homeStyles = {
   heroContent: {
     position: 'relative',
     zIndex: 2,
-    color: '#fff',
+    color: '#f3f4f6',
     maxWidth: '800px',
     width: '100%',
     padding: '20px',
   },
 
   heroTitle: {
-    fontSize: 'clamp(2rem, 6vw, 3.5rem)', // responsive font size
+    fontSize: 'clamp(2rem, 6vw, 3.5rem)',
     fontWeight: 'bold',
     marginBottom: '20px',
+    color: '#facc15'
   },
 
   heroSubtitle: {
     fontSize: 'clamp(1rem, 3vw, 1.5rem)',
     marginBottom: '30px',
+    color: '#d1d5db'
   },
 
   heroButtons: {
@@ -64,23 +68,25 @@ const homeStyles = {
   },
 
   primaryButton: {
-    backgroundColor: '#007bff',
-    color: '#fff',
+    backgroundColor: '#facc15',
+    color: '#1f2937',
     padding: '12px 24px',
     border: 'none',
     borderRadius: '8px',
     textDecoration: 'none',
     fontSize: '16px',
+    fontWeight: 'bold'
   },
 
   secondaryButton: {
-    backgroundColor: '#6c757d',
-    color: '#fff',
+    backgroundColor: '#1f2937',
+    color: '#facc15',
     padding: '12px 24px',
-    border: 'none',
+    border: '1px solid #facc15',
     borderRadius: '8px',
     textDecoration: 'none',
     fontSize: '16px',
+    fontWeight: 'bold'
   },
 
   // ===== FEATURES SECTION =====
@@ -95,7 +101,7 @@ const homeStyles = {
     textAlign: 'center',
     fontSize: '32px',
     marginBottom: '40px',
-    color: '#0d6efd',
+    color: '#facc15'
   },
 
   featureGrid: {
@@ -105,12 +111,13 @@ const homeStyles = {
   },
 
   featureCard: {
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    backgroundColor: '#1f2937',
     borderRadius: '12px',
     padding: '20px',
     textAlign: 'center',
-    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-    color: '#212529',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
+    color: '#f3f4f6',
+    transition: 'transform 0.3s ease',
   },
 
   // ===== PLACEHOLDER SECTION =====
@@ -123,13 +130,13 @@ const homeStyles = {
   chartPlaceholder: {
     marginTop: '20px',
     height: '200px',
-    border: '2px dashed rgba(33, 37, 41, 0.3)',
+    border: '2px dashed #facc15',
     borderRadius: '12px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     fontStyle: 'italic',
-    color: '#6c757d',
+    color: '#facc15',
   },
 
   // ===== TESTIMONIALS & LOCATION =====
@@ -140,7 +147,7 @@ const homeStyles = {
   },
 
   comingSoon: {
-    color: '#6c757d',
+    color: '#9ca3af',
     fontStyle: 'italic',
   },
 };
