@@ -1,4 +1,4 @@
-// src/styles/Home.js
+// File: src/styles/Home.js
 
 const homeStyles = {
   container: {
@@ -7,8 +7,8 @@ const homeStyles = {
     boxSizing: 'border-box',
     overflowX: 'hidden',
     fontFamily: 'Arial, sans-serif',
-    background: 'linear-gradient(135deg, #0f0f0f, #1a1a1a)', // matt black gradient
-    color: '#f3f4f6'
+    backgroundColor: '#f9fafb',
+    color: '#1f2937',
   },
 
   // ===== HERO SECTION =====
@@ -33,14 +33,13 @@ const homeStyles = {
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
     zIndex: 1,
   },
 
   heroContent: {
     position: 'relative',
     zIndex: 2,
-    color: '#f3f4f6',
     maxWidth: '800px',
     width: '100%',
     padding: '20px',
@@ -50,13 +49,13 @@ const homeStyles = {
     fontSize: 'clamp(2rem, 6vw, 3.5rem)',
     fontWeight: 'bold',
     marginBottom: '20px',
-    color: '#facc15'
+    color: '#facc15',
   },
 
   heroSubtitle: {
     fontSize: 'clamp(1rem, 3vw, 1.5rem)',
     marginBottom: '30px',
-    color: '#d1d5db'
+    color: '#ffffff',
   },
 
   heroButtons: {
@@ -75,7 +74,8 @@ const homeStyles = {
     borderRadius: '8px',
     textDecoration: 'none',
     fontSize: '16px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
   },
 
   secondaryButton: {
@@ -86,10 +86,23 @@ const homeStyles = {
     borderRadius: '8px',
     textDecoration: 'none',
     fontSize: '16px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    transition: 'all 0.3s ease',
   },
 
-  // ===== FEATURES SECTION =====
+  primaryButtonHover: {
+    backgroundColor: '#eab308',
+    transform: 'translateY(-2px)',
+    boxShadow: '0 4px 12px rgba(250, 204, 21, 0.3)',
+  },
+
+  secondaryButtonHover: {
+    backgroundColor: '#111827',
+    transform: 'translateY(-2px)',
+    boxShadow: '0 4px 12px rgba(250, 204, 21, 0.2)',
+  },
+
+  // ===== FEATURE SECTION =====
   features: {
     padding: '60px 20px',
     maxWidth: '1200px',
@@ -101,7 +114,7 @@ const homeStyles = {
     textAlign: 'center',
     fontSize: '32px',
     marginBottom: '40px',
-    color: '#facc15'
+    color: '#facc15',
   },
 
   featureGrid: {
@@ -111,16 +124,39 @@ const homeStyles = {
   },
 
   featureCard: {
-    backgroundColor: '#1f2937',
+    background: 'linear-gradient(145deg, #d1d5db, #e5e7eb)',
     borderRadius: '12px',
     padding: '20px',
     textAlign: 'center',
-    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
-    color: '#f3f4f6',
-    transition: 'transform 0.3s ease',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.15)',
+    color: '#1f2937',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    cursor: 'pointer',
   },
 
-  // ===== PLACEHOLDER SECTION =====
+  featureCardHover: {
+    transform: 'translateY(-4px)',
+    boxShadow: '0 12px 20px rgba(0, 0, 0, 0.2)',
+  },
+
+  // ===== PREMIUM CARDS =====
+  premiumFeatureCard: {
+    background: 'linear-gradient(to bottom right, #ff6a5b, #ff3c38)',
+    color: '#ffffff',
+    borderRadius: '12px',
+    padding: '20px',
+    textAlign: 'center',
+    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+    cursor: 'pointer',
+  },
+
+  premiumFeatureCardHover: {
+    transform: 'translateY(-4px)',
+    boxShadow: '0 12px 24px rgba(255, 60, 56, 0.5)', // Sunset red glow
+  },
+
+  // ===== PLACEHOLDER =====
   placeholderSection: {
     marginTop: '80px',
     padding: '0 20px',
@@ -139,7 +175,7 @@ const homeStyles = {
     color: '#facc15',
   },
 
-  // ===== TESTIMONIALS & LOCATION =====
+  // ===== TESTIMONIALS =====
   testimonials: {
     marginTop: '100px',
     padding: '0 20px',
@@ -147,7 +183,7 @@ const homeStyles = {
   },
 
   comingSoon: {
-    color: '#9ca3af',
+    color: '#6b7280',
     fontStyle: 'italic',
   },
 };

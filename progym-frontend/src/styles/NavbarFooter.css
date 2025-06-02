@@ -1,7 +1,7 @@
 /* Navbar Styles */
 .navbar {
-  background-color: #111827; /* dark navy */
-  color: #f3f4f6; /* light text */
+  background: linear-gradient(to left, #ff3c38, #1a1a1a); /* strong sunset red to dark */
+  color: #ffffff;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -9,16 +9,18 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 4px 8px rgba(250, 204, 21, 0.1); /* soft gold shadow */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Logo */
 .logoText {
   font-size: 24px;
   font-weight: bold;
-  color: #facc15; /* royal gold */
+  color: #facc15; /* golden contrast on dark */
   text-decoration: none;
 }
 
+/* Nav Links */
 .navLinks {
   list-style: none;
   display: flex;
@@ -28,39 +30,43 @@
 }
 
 .link {
-  color: #f3f4f6; /* light text */
+  color: #ffffff; /* bright text */
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
-  transition: color 0.3s ease;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .link:hover {
-  color: #facc15; /* royal gold on hover */
-}
-
-/* Footer Styles */
-.footer {
-  background-color: #111827;
-  color: #9ca3af; /* gray-400 */
-  text-align: center;
-  padding: 20px;
-  font-size: 14px;
-}
-
-.footerText {
-  margin: 0;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
 }
 
 /* Responsive Navbar */
 @media (max-width: 600px) {
-  .navLinks {
-    flex-direction: column;
-    gap: 12px;
-  }
-
   .navbar {
     flex-direction: column;
     align-items: flex-start;
   }
+
+  .navLinks {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* Footer Styles */
+.footer {
+  background-color: #1a1a1a; /* match dark side of navbar gradient */
+  color: #9ca3af; /* soft gray text */
+  text-align: center;
+  padding: 20px;
+  font-size: 14px;
+  border-top: 1px solid #374151; /* subtle separator */
+}
+
+.footerText {
+  margin: 0;
 }

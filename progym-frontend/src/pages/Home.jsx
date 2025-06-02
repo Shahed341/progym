@@ -1,74 +1,97 @@
 // File: src/pages/Home.jsx
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import homeStyles from '../styles/Home'; // JS-based inline style object
+import homeStyles from '../styles/Home';
 
-// Section: Core Features Grid
+// Hoverable Feature Card Component
+function HoverCard({ to, title, desc, isPremium = false }) {
+  const [hover, setHover] = useState(false);
+
+  const cardStyle = {
+    ...homeStyles.featureCard,
+    ...(hover
+      ? isPremium
+        ? homeStyles.premiumFeatureCardHover
+        : homeStyles.featureCardHover
+      : {}),
+    textDecoration: 'none',
+    color: 'inherit',
+  };
+
+  return (
+    <Link
+      to={to}
+      style={cardStyle}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      <h3>{title}</h3>
+      <p>{desc}</p>
+    </Link>
+  );
+}
+
+// Hoverable Button Component
+function HoverButton({ to, label, type = 'primary' }) {
+  const [hover, setHover] = useState(false);
+  const baseStyle = type === 'primary'
+    ? homeStyles.primaryButton
+    : homeStyles.secondaryButton;
+  const hoverStyle = type === 'primary'
+    ? homeStyles.primaryButtonHover
+    : homeStyles.secondaryButtonHover;
+
+  return (
+    <Link
+      to={to}
+      style={{ ...baseStyle, ...(hover ? hoverStyle : {}) }}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+    >
+      {label}
+    </Link>
+  );
+}
+
+// Feature Grid Section
 function FeatureSection({ role }) {
-  const noUnderlineStyle = { textDecoration: 'none', color: 'inherit' };
+  const features = [
+    { to: "/track-workout", title: "Track Workouts", desc: "Log sets, reps, and weights to monitor your strength progress." },
+    { to: "/meal-plans", title: "Meal Plans", desc: "Customized diet plans tailored to your fitness goals." },
+    { to: "/calorie-tracker", title: "Calorie Tracker", desc: "Track your daily calorie intake and expenditure." },
+    { to: "/exercises", title: "Exercise Categories", desc: "Browse exercises by body part: Chest, Legs, Arms, Back, Core, etc." },
+    { to: "/supplement-guide", title: "Supplements Guide", desc: "Learn about protein powders, creatine, BCAAs, and more." },
+    { to: "/weight-loss", title: "Weight Loss Plan", desc: "Structured fat-burning plan with cardio and diet guides." },
+    { to: "/muscle-gain", title: "Muscle Gain Plan", desc: "Gain healthy muscle mass with progressive overload tips." },
+    { to: "/bulking", title: "Bulking Strategy", desc: "Maximize muscle growth with tailored nutrition and training." },
+    { to: "/cutting", title: "Cutting Program", desc: "Drop fat while retaining muscle mass effectively." },
+  ];
+
+  const premiumFeatures = [
+    { to: "/premium/progress-charts", title: "Progress Charts", desc: "Visualize your improvements with professional graphs and analytics." },
+    { to: "/premium/gymbot", title: "AI GymBot", desc: "Real-time assistance with workout queries, nutrition, and motivation." },
+  ];
 
   return (
     <section style={{ ...homeStyles.features, minHeight: '100vh' }}>
       <h2 style={homeStyles.sectionTitle}>Explore Our Core Features</h2>
       <div style={homeStyles.featureGrid}>
+        {features.map((feature, index) => (
+          <HoverCard key={index} {...feature} />
+        ))}
 
-        {/* Default features available to all users */}
-        <Link to="/track-workout" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-          <h3>Track Workouts</h3>
-          <p>Log sets, reps, and weights to monitor your strength progress.</p>
-        </Link>
-        <Link to="/meal-plans" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-          <h3>Meal Plans</h3>
-          <p>Customized diet plans tailored to your fitness goals.</p>
-        </Link>
-        <Link to="/calorie-tracker" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-          <h3>Calorie Tracker</h3>
-          <p>Track your daily calorie intake and expenditure.</p>
-        </Link>
-        <Link to="/exercises" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-          <h3>Exercise Categories</h3>
-          <p>Browse exercises by body part: Chest, Legs, Arms, Back, Core, etc.</p>
-        </Link>
-        <Link to="/supplement-guide" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-          <h3>Supplements Guide</h3>
-          <p>Learn about protein powders, creatine, BCAAs, and more.</p>
-        </Link>
-        <Link to="/weight-loss" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-          <h3>Weight Loss Plan</h3>
-          <p>Structured fat-burning plan with cardio and diet guides.</p>
-        </Link>
-        <Link to="/muscle-gain" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-          <h3>Muscle Gain Plan</h3>
-          <p>Gain healthy muscle mass with progressive overload tips.</p>
-        </Link>
-        <Link to="/bulking" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-          <h3>Bulking Strategy</h3>
-          <p>Maximize muscle growth with tailored nutrition and training.</p>
-        </Link>
-        <Link to="/cutting" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-          <h3>Cutting Program</h3>
-          <p>Drop fat while retaining muscle mass effectively.</p>
-        </Link>
-
-        {/* Premium-only features */}
         {role === 'premium' && (
           <>
-            <Link to="/premium/progress-charts" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-              <h3>Progress Charts</h3>
-              <p>Visualize your improvements with professional graphs and analytics.</p>
-            </Link>
-            <Link to="/premium/gymbot" style={{ ...homeStyles.featureCard, ...noUnderlineStyle }}>
-              <h3>AI GymBot</h3>
-              <p>Real-time assistance with workout queries, nutrition, and motivation.</p>
-            </Link>
+            {premiumFeatures.map((feature, index) => (
+              <HoverCard key={`premium-${index}`} {...feature} isPremium />
+            ))}
             <div style={homeStyles.featureCard}>
-              <Link to="/premium" style={{ ...homeStyles.primaryButton, ...noUnderlineStyle }}>Use Premium Features</Link>
+              <HoverButton to="/premium" label="Use Premium Features" />
             </div>
           </>
         )}
 
-        {/* Upsell for standard users */}
         {role === 'user' && (
           <>
             <div style={homeStyles.featureCard}>
@@ -76,7 +99,7 @@ function FeatureSection({ role }) {
               <p>Unlock advanced analytics and GymBot with our Premium Membership.</p>
             </div>
             <div style={homeStyles.featureCard}>
-              <Link to="/upgrade" style={{ ...homeStyles.primaryButton, ...noUnderlineStyle }}>Upgrade to Premium</Link>
+              <HoverButton to="/upgrade" label="Upgrade to Premium" />
             </div>
           </>
         )}
@@ -85,7 +108,7 @@ function FeatureSection({ role }) {
   );
 }
 
-// Main Home Component
+// Home Component
 function Home({ user }) {
   const role = user?.role || null;
 
@@ -96,24 +119,16 @@ function Home({ user }) {
         <div style={homeStyles.heroOverlay}></div>
         <div style={homeStyles.heroContent}>
           <h1 style={homeStyles.heroTitle}>Welcome to ProGYM</h1>
-          <p style={homeStyles.heroSubtitle}>
-            Your journey to a healthier, stronger you starts here.
-          </p>
-
-          {/* Conditional buttons based on user role */}
+          <p style={homeStyles.heroSubtitle}>Your journey to a healthier, stronger you starts here.</p>
           <div style={homeStyles.heroButtons}>
             {!user && (
               <>
-                <Link to="/register" style={homeStyles.primaryButton}>Join Now</Link>
-                <Link to="/login" style={homeStyles.secondaryButton}>Login</Link>
+                <HoverButton to="/register" label="Join Now" />
+                <HoverButton to="/login" label="Login" type="secondary" />
               </>
             )}
-            {role === 'user' && (
-              <Link to="/upgrade" style={homeStyles.primaryButton}>Upgrade to Premium</Link>
-            )}
-            {role === 'premium' && (
-              <Link to="/premium" style={homeStyles.primaryButton}>Go to Premium Dashboard</Link>
-            )}
+            {role === 'user' && <HoverButton to="/upgrade" label="Upgrade to Premium" />}
+            {role === 'premium' && <HoverButton to="/premium" label="Go to Premium Dashboard" />}
           </div>
         </div>
       </section>
@@ -121,7 +136,7 @@ function Home({ user }) {
       {/* FEATURES SECTION */}
       <FeatureSection role={role} />
 
-      {/* PROGRESS CHART PLACEHOLDER */}
+      {/* PLACEHOLDER SECTION */}
       <section style={homeStyles.placeholderSection}>
         <h2 style={homeStyles.sectionTitle}>Live Progress Dashboard (Coming Soon)</h2>
         <div style={homeStyles.chartPlaceholder}>
@@ -129,13 +144,13 @@ function Home({ user }) {
         </div>
       </section>
 
-      {/* TESTIMONIAL PLACEHOLDER */}
+      {/* TESTIMONIALS SECTION */}
       <section style={homeStyles.testimonials}>
         <h2 style={homeStyles.sectionTitle}>Success Stories</h2>
         <p style={homeStyles.comingSoon}>Real people. Real transformation. Coming soon.</p>
       </section>
 
-      {/* LOCATION FOOTER */}
+      {/* LOCATION SECTION */}
       <section style={homeStyles.testimonials}>
         <h2 style={homeStyles.sectionTitle}>ProGYM Location</h2>
         <p style={homeStyles.comingSoon}>1234 East West Canada</p>
