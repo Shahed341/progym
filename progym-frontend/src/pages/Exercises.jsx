@@ -1,9 +1,6 @@
-// File: src/pages/Exercises.js
-
 import React, { useState } from "react";
 import styles from "../styles/ExerciseStyles";
 
-// Static exercise data with muscle group info
 const exerciseCategories = [
   {
     category: "Chest",
@@ -21,49 +18,62 @@ const exerciseCategories = [
       { name: "Leg Press", target: "Quadriceps, Glutes" },
     ],
   },
+  {
+    category: "Back",
+    exercises: [
+      { name: "Deadlifts", target: "Erector Spinae, Glutes, Hamstrings" },
+      { name: "Lat Pulldown", target: "Latissimus Dorsi, Biceps" },
+      { name: "Seated Row", target: "Middle Back, Rhomboids, Biceps" },
+    ],
+  },
+  {
+    category: "Arms",
+    exercises: [
+      { name: "Bicep Curl", target: "Biceps Brachii" },
+      { name: "Tricep Dip", target: "Triceps Brachii" },
+      { name: "Hammer Curl", target: "Biceps, Brachialis" },
+    ],
+  },
 ];
 
-function ExerciseDetailCard({ name, target, isOpen, toggle }) {
+function ExerciseDetailCard({ name, target }) {
   return (
-    <div style={styles.cardPremium} onClick={toggle}>
+    <div style={styles.card}>
       <h3 style={styles.cardTitle}>{name}</h3>
-      {isOpen && (
-        <p style={styles.cardSubtitle}><strong>Targets:</strong> {target}</p>
-      )}
+      <p style={styles.cardSubtitle}><strong>Targets:</strong> {target}</p>
     </div>
   );
 }
 
 function Exercises() {
-  const [openExercise, setOpenExercise] = useState(null);
-
-  const toggleExercise = (exerciseName) => {
-    setOpenExercise((prev) => (prev === exerciseName ? null : exerciseName));
-  };
-
   return (
-    <div style={styles.pagePremium}>
-      <h1 style={styles.pageTitle}>Explore Exercises</h1>
-
-      {exerciseCategories.map((section) => (
-        <div key={section.category} style={styles.categorySection}>
-          <h2 style={{ ...styles.categoryTitle, padding: "1rem 1.5rem", backgroundColor: "#3b82f6", color: "#fff" }}>
+    <div style={styles.page}>
+      {/* Fixed top navbar */}
+      <nav style={styles.navbar}>
+        {exerciseCategories.map(section => (
+          <a key={section.category} href={`#${section.category}`} style={styles.navLink}>
             {section.category}
-          </h2>
+          </a>
+        ))}
+      </nav>
 
-          <div style={styles.exerciseGrid}>
-            {section.exercises.map((exercise, index) => (
-              <ExerciseDetailCard
-                key={index}
-                name={exercise.name}
-                target={exercise.target}
-                isOpen={openExercise === exercise.name}
-                toggle={() => toggleExercise(exercise.name)}
-              />
-            ))}
-          </div>
-        </div>
-      ))}
+      {/* Scroll snapping wrapper */}
+      <div style={styles.scrollContainer}>
+        {exerciseCategories.map(section => (
+          <section key={section.category} id={section.category} style={styles.snapSection}>
+            <h2 style={styles.categoryTitle}>{section.category}</h2>
+            <div style={styles.exerciseList}>
+              {section.exercises.map((exercise, i) => (
+                <ExerciseDetailCard
+                  key={i}
+                  name={exercise.name}
+                  target={exercise.target}
+                />
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
     </div>
   );
 }

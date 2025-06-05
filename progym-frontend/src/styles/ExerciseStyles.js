@@ -1,67 +1,77 @@
-// File: src/styles/ExerciseStyles.js
-
 const styles = {
-  pagePremium: {
-    padding: "2.5rem",
-    backgroundColor: "#111827", // dark background
+  page: {
+    backgroundColor: "#FFF6E0",
     fontFamily: "'Inter', sans-serif",
-    color: "#f3f4f6",
-  },
-  pageTitle: {
-    fontSize: "2.75rem",
-    textAlign: "center",
-    marginBottom: "2.5rem",
-    color: "#facc15", // royal gold
-    fontWeight: "700",
-  },
-  categorySection: {
-    marginBottom: "2.5rem",
-    borderRadius: "14px",
-    backgroundColor: "#1f2937", // dark panel
-    boxShadow: "0 6px 18px rgba(0, 0, 0, 0.5)",
+    color: "#272829",
+    position: "relative",
+    height: "100vh",
     overflow: "hidden",
   },
-  categoryTitle: {
-    margin: 0,
-    fontSize: "1.75rem",
-    fontWeight: "600",
-    letterSpacing: "0.5px",
-    padding: "1rem 1.5rem",
-    backgroundColor: "#374151",
-    color: "#facc15",
-    borderBottom: "1px solid #4b5563",
-  },
-  exerciseGrid: {
+  navbar: {
+    position: "fixed",
+    top: 0,
+    width: "100%",
+    backgroundColor: "#61677A",
     display: "flex",
-    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "2rem",
+    padding: "1rem 0",
+    zIndex: 1000,
+    boxShadow: "0 2px 8px rgba(216,217,218,0.4)",
+  },
+  navLink: {
+    color: "#FFF6E0",
+    textDecoration: "none",
+    fontWeight: "600",
+    fontSize: "1rem",
+    letterSpacing: "0.5px",
+  },
+  scrollContainer: {
+    scrollSnapType: "y mandatory",
+    overflowY: "scroll",
+    height: "100vh",
+    scrollBehavior: "smooth",
+  },
+  snapSection: {
+    scrollSnapAlign: "start",
+    height: "100vh",
+    paddingTop: "5rem",
+    paddingInline: "1.5rem",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "flex-start",
     gap: "1.5rem",
-    padding: "1.75rem",
-    backgroundColor: "#111827",
   },
-  cardPremium: {
-    flex: "1 1 280px",
-    backgroundColor: "#1f2937",
-    padding: "1.5rem",
-    borderRadius: "12px",
-    boxShadow: "0 4px 16px rgba(0, 0, 0, 0.3)",
-    cursor: "pointer",
-    transition: "transform 0.25s ease, box-shadow 0.25s ease",
-    color: "#f3f4f6",
+  categoryTitle: {
+    fontSize: "2rem",
+    fontWeight: "700",
+    marginBottom: "1rem",
+    color: "#272829",
   },
-  cardPremiumHover: {
-    transform: "translateY(-4px)",
-    boxShadow: "0 8px 24px rgba(0, 0, 0, 0.5)",
+  exerciseList: {
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+    gap: "1rem",
+    width: "100%",
+    maxWidth: "1000px",
+  },
+  card: {
+    backgroundColor: "#FFF6E0",
+    border: "1px solid #D8D9DA",
+    borderRadius: "10px",
+    padding: "1rem",
+    boxShadow: "0 4px 10px rgba(216,217,218,0.3)",
+    transition: "transform 0.25s ease",
   },
   cardTitle: {
-    margin: "0 0 0.75rem 0",
-    fontSize: "1.35rem",
-    color: "#facc15",
+    fontSize: "1.25rem",
     fontWeight: "600",
+    marginBottom: "0.5rem",
   },
   cardSubtitle: {
-    fontSize: "1rem",
-    color: "#d1d5db",
-    lineHeight: 1.6,
+    fontSize: "0.95rem",
+    color: "#61677A",
   },
 };
 
