@@ -1,30 +1,12 @@
+// File: src/styles/ExerciseStyles.js
+
 const styles = {
   page: {
     backgroundColor: "#FFF6E0",
     fontFamily: "'Inter', sans-serif",
     color: "#272829",
-    position: "relative",
     height: "100vh",
     overflow: "hidden",
-  },
-  navbar: {
-    position: "fixed",
-    top: 0,
-    width: "100%",
-    backgroundColor: "#61677A",
-    display: "flex",
-    justifyContent: "center",
-    gap: "2rem",
-    padding: "1rem 0",
-    zIndex: 1000,
-    boxShadow: "0 2px 8px rgba(216,217,218,0.4)",
-  },
-  navLink: {
-    color: "#FFF6E0",
-    textDecoration: "none",
-    fontWeight: "600",
-    fontSize: "1rem",
-    letterSpacing: "0.5px",
   },
   scrollContainer: {
     scrollSnapType: "y mandatory",
@@ -35,26 +17,31 @@ const styles = {
   snapSection: {
     scrollSnapAlign: "start",
     height: "100vh",
-    paddingTop: "5rem",
-    paddingInline: "1.5rem",
     display: "flex",
-    flexDirection: "column",
+    justifyContent: "center",
     alignItems: "center",
-    justifyContent: "flex-start",
-    gap: "1.5rem",
+    padding: "2rem",
+  },
+  sectionBox: {
+    backgroundColor: "#FFF6E0",
+    borderRadius: "16px",
+    boxShadow: "0 10px 30px rgba(216, 217, 218, 0.4)",
+    padding: "2rem",
+    width: "90%",
+    maxWidth: "1000px",
+    textAlign: "center",
   },
   categoryTitle: {
     fontSize: "2rem",
     fontWeight: "700",
-    marginBottom: "1rem",
+    marginBottom: "1.5rem",
     color: "#272829",
   },
   exerciseList: {
     display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))",
+    gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
     gap: "1rem",
-    width: "100%",
-    maxWidth: "1000px",
+    marginTop: "1rem",
   },
   card: {
     backgroundColor: "#FFF6E0",
@@ -65,7 +52,7 @@ const styles = {
     transition: "transform 0.25s ease",
   },
   cardTitle: {
-    fontSize: "1.25rem",
+    fontSize: "1.2rem",
     fontWeight: "600",
     marginBottom: "0.5rem",
   },
