@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import homeStyles from '../styles/Home';
 
 // Hoverable Feature Card Component
-function HoverCard({ to, title, desc, isPremium = false }) {
+function HoverCard({ to, title, desc, icon, isPremium = false }) {
   const [hover, setHover] = useState(false);
 
   const cardStyle = {
@@ -17,6 +17,15 @@ function HoverCard({ to, title, desc, isPremium = false }) {
       : {}),
     textDecoration: 'none',
     color: 'inherit',
+    position: 'relative',
+    overflow: 'hidden'
+  };
+
+  const iconStyle = {
+    width: hover ? '100px' : '80px',
+    height: hover ? '100px' : '80px',
+    transition: 'all 0.3s ease',
+    marginBottom: '16px'
   };
 
   return (
@@ -26,6 +35,7 @@ function HoverCard({ to, title, desc, isPremium = false }) {
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
+      {icon && <img src={icon} alt={title + " Icon"} style={iconStyle} />}
       <h3>{title}</h3>
       <p>{desc}</p>
     </Link>
@@ -57,15 +67,15 @@ function HoverButton({ to, label, type = 'primary' }) {
 // Feature Grid Section
 function FeatureSection({ role }) {
   const features = [
-    { to: "/track-workout", title: "Track Workouts", desc: "Log sets, reps, and weights to monitor your strength progress." },
-    { to: "/meal-plans", title: "Meal Plans", desc: "Customized diet plans tailored to your fitness goals." },
-    { to: "/calorie-tracker", title: "Calorie Tracker", desc: "Track your daily calorie intake and expenditure." },
-    { to: "/exercises", title: "Exercise Categories", desc: "Browse exercises by body part: Chest, Legs, Arms, Back, Core, etc." },
-    { to: "/supplement-guide", title: "Supplements Guide", desc: "Learn about protein powders, creatine, BCAAs, and more." },
-    { to: "/weight-loss", title: "Weight Loss Plan", desc: "Structured fat-burning plan with cardio and diet guides." },
-    { to: "/muscle-gain", title: "Muscle Gain Plan", desc: "Gain healthy muscle mass with progressive overload tips." },
-    { to: "/bulking", title: "Bulking Strategy", desc: "Maximize muscle growth with tailored nutrition and training." },
-    { to: "/cutting", title: "Cutting Program", desc: "Drop fat while retaining muscle mass effectively." },
+    { to: "/track-workout", title: "Track Workouts", desc: "Log sets, reps, and weights to monitor your strength progress.", icon: "/images/icons/trackWorkouts.png" },
+    { to: "/meal-plans", title: "Meal Plans", desc: "Customized diet plans tailored to your fitness goals.", icon: "/images/icons/mealPlans.png" },
+    { to: "/calorie-tracker", title: "Calorie Tracker", desc: "Track your daily calorie intake and expenditure.", icon: "/images/icons/calorieTracker.png" },
+    { to: "/exercises", title: "Exercise Categories", desc: "Browse exercises by body part: Chest, Legs, Arms, Back, Core, etc.", icon: "/images/icons/exerciseCategories.png" },
+    { to: "/supplement-guide", title: "Supplements Guide", desc: "Learn about protein powders, creatine, BCAAs, and more.", icon: "/images/icons/supplementsGuide.png" },
+    { to: "/weight-loss", title: "Weight Loss Plan", desc: "Structured fat-burning plan with cardio and diet guides.", icon: "/images/icons/weightLossPlan.png" },
+    { to: "/muscle-gain", title: "Muscle Gain Plan", desc: "Gain healthy muscle mass with progressive overload tips.", icon: "/images/icons/muscleGain.png" },
+    { to: "/bulking", title: "Bulking Strategy", desc: "Maximize muscle growth with tailored nutrition and training.", icon: "/images/icons/BulkingStrategy.png" },
+    { to: "/cutting", title: "Cutting Program", desc: "Drop fat while retaining muscle mass effectively.", icon: "/images/icons/CuttingProgram.png" },
   ];
 
   const premiumFeatures = [

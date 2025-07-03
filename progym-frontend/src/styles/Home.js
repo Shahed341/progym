@@ -132,11 +132,19 @@ const homeStyles = {
     color: '#1f2937',
     transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     cursor: 'pointer',
+    minHeight: '300px',
   },
 
   featureCardHover: {
     transform: 'translateY(-4px)',
     boxShadow: '0 12px 20px rgba(0, 0, 0, 0.2)',
+  },
+
+  featureIcon: {
+    width: '80px',
+    height: '80px',
+    transition: 'all 0.3s ease',
+    marginBottom: '16px',
   },
 
   // ===== PREMIUM CARDS =====
@@ -153,7 +161,7 @@ const homeStyles = {
 
   premiumFeatureCardHover: {
     transform: 'translateY(-4px)',
-    boxShadow: '0 12px 24px rgba(255, 60, 56, 0.5)', // Sunset red glow
+    boxShadow: '0 12px 24px rgba(255, 60, 56, 0.5)',
   },
 
   // ===== PLACEHOLDER =====
