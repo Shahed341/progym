@@ -201,6 +201,16 @@ function Home({ user }) {
       <section style={homeStyles.testimonials}>
         <h2 style={homeStyles.sectionTitle}>ProGYM Location</h2>
         <p style={homeStyles.comingSoon}>1234 East West Canada</p>
+        <iframe
+          title="ProGYM Map"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2564.7977553915154!2d-106.6344717230323!3d52.13151597196496!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5304f725b171c67d%3A0xd4c0d30e418ca4c2!2sUniversity%20of%20Saskatchewan!5e0!3m2!1sen!2sca!4v1689964820406!5m2!1sen!2sca"
+          width="100%"
+          height="300"
+          style={{ border: 0, borderRadius: '12px', marginTop: '20px' }}
+          allowFullScreen=""
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+        ></iframe>
       </section>
     </div>
   );
