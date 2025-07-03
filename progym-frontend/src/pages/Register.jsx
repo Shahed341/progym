@@ -23,9 +23,14 @@ function Register() {
   // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log("Submitting form data:", formData); // Debug: View values being sent
+
     try {
       // Step 1: Register the user
-      await axios.post('http://localhost:5000/api/auth/register', formData);
+      await axios.post('http://localhost:5000/api/auth/register', formData, {
+        headers: { 'Content-Type': 'application/json' }
+      });
 
       // Step 2: Log in the user automatically
       const loginRes = await axios.post('http://localhost:5000/api/auth/login', {
@@ -43,7 +48,7 @@ function Register() {
       navigate('/');
     } catch (err) {
       console.error('Registration/Login failed:', err.response?.data || err.message);
-      alert('Registration or login failed!');
+      alert(err.response?.data?.message || 'Registration or login failed!');
     }
   };
 
@@ -57,6 +62,7 @@ function Register() {
             name="username"
             placeholder="Username"
             required
+            value={formData.username}
             onChange={handleChange}
             style={registerStyles.input}
           />
@@ -65,6 +71,7 @@ function Register() {
             name="email"
             placeholder="Email"
             required
+            value={formData.email}
             onChange={handleChange}
             style={registerStyles.input}
           />
@@ -73,6 +80,7 @@ function Register() {
             name="password"
             placeholder="Password"
             required
+            value={formData.password}
             onChange={handleChange}
             style={registerStyles.input}
           />
