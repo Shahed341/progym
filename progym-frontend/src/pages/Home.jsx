@@ -184,14 +184,20 @@ function Home({ user }) {
           </div>
         </div>
       </section>
+
       <FeatureSection role={role} />
-      <section style={homeStyles.placeholderSection}>
-        <h2 style={homeStyles.sectionTitle}>Live Progress Dashboard (Coming Soon)</h2>
-        <div style={homeStyles.chartPlaceholder}>
-          <p>[Insert Chart/Graph Component]</p>
-        </div>
-      </section>
+
+      {user && (
+        <section style={homeStyles.placeholderSection}>
+          <h2 style={homeStyles.sectionTitle}>Live Progress Dashboard (Coming Soon)</h2>
+          <div style={homeStyles.chartPlaceholder}>
+            <p>[Insert Chart/Graph Component]</p>
+          </div>
+        </section>
+      )}
+
       <SuccessStoriesSection />
+
       <section style={homeStyles.testimonials}>
         <h2 style={homeStyles.sectionTitle}>ProGYM Location</h2>
         <p style={homeStyles.comingSoon}>1234 East West Canada</p>
