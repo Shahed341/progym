@@ -183,7 +183,7 @@ const homeStyles = {
     color: '#facc15',
   },
 
-  // ===== TESTIMONIALS =====
+  // ===== TESTIMONIALS & SUCCESS STORIES =====
   testimonials: {
     marginTop: '100px',
     padding: '0 20px',
@@ -193,6 +193,79 @@ const homeStyles = {
   comingSoon: {
     color: '#6b7280',
     fontStyle: 'italic',
+  },
+
+  successStoriesSection: {
+    padding: '80px 20px',
+    position: 'relative',
+    minHeight: '400px',
+  },
+
+  storyGridScrollContainer: {
+    display: 'grid',
+    gridAutoFlow: 'column',
+    gridGap: '20px',
+    overflowX: 'hidden',
+    padding: '20px 60px',
+    scrollBehavior: 'smooth',
+    alignItems: 'center',
+  },
+
+  storyCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: '12px',
+    padding: '16px',
+    width: '320px',
+    minWidth: '320px',
+    height: '320px',
+    boxShadow: '0 6px 12px rgba(0, 0, 0, 0.1)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+  },
+
+  storyImages: {
+    display: 'flex',
+    gap: '10px',
+    marginBottom: '12px',
+  },
+
+  storyImage: {
+    width: '50%',
+    height: '200px',
+    borderRadius: '8px',
+    objectFit: 'cover',
+  },
+
+  storyComment: {
+    fontStyle: 'italic',
+    color: '#1f2937',
+    marginTop: '10px',
+  },
+
+  storyNavButton: {
+    position: 'absolute',
+    top: '50%',
+    transform: 'translateY(-50%)',
+    backgroundColor: '#facc15',
+    color: '#1f2937',
+    border: 'none',
+    borderRadius: '50%',
+    width: '40px',
+    height: '40px',
+    fontSize: '20px',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    boxShadow: '0 4px 10px rgba(0,0,0,0.2)',
+    zIndex: 2,
+  },
+
+  storyNavLeft: {
+    left: '10px',
+  },
+
+  storyNavRight: {
+    right: '10px',
   },
 };
 

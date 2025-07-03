@@ -1,13 +1,11 @@
 // File: src/pages/Home.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import homeStyles from '../styles/Home';
 
-// Hoverable Feature Card Component
 function HoverCard({ to, title, desc, icon, isPremium = false }) {
   const [hover, setHover] = useState(false);
-
   const cardStyle = {
     ...homeStyles.featureCard,
     ...(hover
@@ -20,14 +18,12 @@ function HoverCard({ to, title, desc, icon, isPremium = false }) {
     position: 'relative',
     overflow: 'hidden'
   };
-
   const iconStyle = {
     width: hover ? '100px' : '80px',
     height: hover ? '100px' : '80px',
     transition: 'all 0.3s ease',
     marginBottom: '16px'
   };
-
   return (
     <Link
       to={to}
@@ -42,7 +38,6 @@ function HoverCard({ to, title, desc, icon, isPremium = false }) {
   );
 }
 
-// Hoverable Button Component
 function HoverButton({ to, label, type = 'primary' }) {
   const [hover, setHover] = useState(false);
   const baseStyle = type === 'primary'
@@ -51,7 +46,6 @@ function HoverButton({ to, label, type = 'primary' }) {
   const hoverStyle = type === 'primary'
     ? homeStyles.primaryButtonHover
     : homeStyles.secondaryButtonHover;
-
   return (
     <Link
       to={to}
@@ -64,7 +58,6 @@ function HoverButton({ to, label, type = 'primary' }) {
   );
 }
 
-// Feature Grid Section
 function FeatureSection({ role }) {
   const features = [
     { to: "/track-workout", title: "Track Workouts", desc: "Log sets, reps, and weights to monitor your strength progress.", icon: "/images/icons/trackWorkouts.png" },
@@ -77,12 +70,10 @@ function FeatureSection({ role }) {
     { to: "/bulking", title: "Bulking Strategy", desc: "Maximize muscle growth with tailored nutrition and training.", icon: "/images/icons/BulkingStrategy.png" },
     { to: "/cutting", title: "Cutting Program", desc: "Drop fat while retaining muscle mass effectively.", icon: "/images/icons/CuttingProgram.png" },
   ];
-
   const premiumFeatures = [
     { to: "/premium/progress-charts", title: "Progress Charts", desc: "Visualize your improvements with professional graphs and analytics." },
     { to: "/premium/gymbot", title: "AI GymBot", desc: "Real-time assistance with workout queries, nutrition, and motivation." },
   ];
-
   return (
     <section style={{ ...homeStyles.features, minHeight: '100vh' }}>
       <h2 style={homeStyles.sectionTitle}>Explore Our Core Features</h2>
@@ -90,7 +81,6 @@ function FeatureSection({ role }) {
         {features.map((feature, index) => (
           <HoverCard key={index} {...feature} />
         ))}
-
         {role === 'premium' && (
           <>
             {premiumFeatures.map((feature, index) => (
@@ -101,7 +91,6 @@ function FeatureSection({ role }) {
             </div>
           </>
         )}
-
         {role === 'user' && (
           <>
             <div style={homeStyles.featureCard}>
@@ -118,13 +107,66 @@ function FeatureSection({ role }) {
   );
 }
 
-// Home Component
+function StoryCard({ before, after, comment, name }) {
+  return (
+    <div style={homeStyles.storyCard}>
+      <div style={homeStyles.storyImages}>
+        <img src={before} alt="Before" style={homeStyles.storyImage} />
+        <img src={after} alt="After" style={homeStyles.storyImage} />
+      </div>
+      <p style={homeStyles.storyComment}><strong>{name}:</strong> {comment}</p>
+    </div>
+  );
+}
+
+function SuccessStoriesSection() {
+  const scrollRef = useRef();
+  const stories = [
+    {
+      before: '/images/stories/before1.jpg',
+      after: '/images/stories/after1.jpg',
+      comment: 'Lost 20 pounds and gained confidence!',
+      name: 'Sarah'
+    },
+    {
+      before: '/images/stories/before2.jpg',
+      after: '/images/stories/after2.jpg',
+      comment: 'My energy and strength are through the roof.',
+      name: 'Jason'
+    },
+    {
+      before: '/images/stories/before3.jpg',
+      after: '/images/stories/after3.jpg',
+      comment: 'From skinny to shredded! Thanks ProGYM!',
+      name: 'Laura'
+    }
+  ];
+  const scroll = (dir) => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: dir === 'left' ? -340 : 340, behavior: 'smooth' });
+    }
+  };
+  return (
+    <section style={homeStyles.successStoriesSection}>
+      <h2 style={homeStyles.sectionTitle}>Success Stories</h2>
+      <button onClick={() => scroll('left')} style={{ ...homeStyles.storyNavButton, ...homeStyles.storyNavLeft }}>{'<'}</button>
+      <div ref={scrollRef} style={homeStyles.storyGridScrollContainer}>
+        {stories.map((story, idx) => (
+          <StoryCard key={idx} {...story} />
+        ))}
+      </div>
+      <button onClick={() => scroll('right')} style={{ ...homeStyles.storyNavButton, ...homeStyles.storyNavRight }}>{'>'}</button>
+      <div style={{ textAlign: 'center', marginTop: '20px' }}>
+        <HoverButton to="/submit-story" label="Post Your Story" />
+      </div>
+    </section>
+  );
+}
+
 function Home({ user }) {
   const role = user?.role || null;
-
   return (
     <div style={homeStyles.container}>
-      {/* HERO SECTION */}
       <section style={homeStyles.hero}>
         <div style={homeStyles.heroOverlay}></div>
         <div style={homeStyles.heroContent}>
@@ -142,25 +184,14 @@ function Home({ user }) {
           </div>
         </div>
       </section>
-
-      {/* FEATURES SECTION */}
       <FeatureSection role={role} />
-
-      {/* PLACEHOLDER SECTION */}
       <section style={homeStyles.placeholderSection}>
         <h2 style={homeStyles.sectionTitle}>Live Progress Dashboard (Coming Soon)</h2>
         <div style={homeStyles.chartPlaceholder}>
           <p>[Insert Chart/Graph Component]</p>
         </div>
       </section>
-
-      {/* TESTIMONIALS SECTION */}
-      <section style={homeStyles.testimonials}>
-        <h2 style={homeStyles.sectionTitle}>Success Stories</h2>
-        <p style={homeStyles.comingSoon}>Real people. Real transformation. Coming soon.</p>
-      </section>
-
-      {/* LOCATION SECTION */}
+      <SuccessStoriesSection />
       <section style={homeStyles.testimonials}>
         <h2 style={homeStyles.sectionTitle}>ProGYM Location</h2>
         <p style={homeStyles.comingSoon}>1234 East West Canada</p>
