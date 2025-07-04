@@ -1,5 +1,3 @@
-// File: progym-frontend/src/pages/TrackWorkout.jsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {
@@ -13,6 +11,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import styles from '../styles/TrackWorkout';
+import WorkoutCharts from '../components/WorkoutCharts';
 
 const workoutOptions = {
   Chest: ['Bench Press', 'Incline Dumbbell Press', 'Chest Fly'],
@@ -20,7 +19,10 @@ const workoutOptions = {
   Legs: ['Squats', 'Leg Press', 'Lunges'],
   Back: ['Deadlift', 'Lat Pulldown', 'Barbell Row'],
   Shoulders: ['Shoulder Press', 'Lateral Raise', 'Front Raise'],
+  Others: ['Jump Rope', 'Burpees', 'Mountain Climbers']
 };
+
+const bodyParts = Object.keys(workoutOptions);
 
 const TrackWorkout = () => {
   const [category, setCategory] = useState('Chest');
@@ -96,29 +98,42 @@ const TrackWorkout = () => {
     ? workouts.filter((w) => w.exercise === selectedExercise)
     : workouts;
 
+  const radarData = ['Chest', 'Arms', 'Legs', 'Back', 'Shoulders'].map(group => ({
+    group,
+    volume: workouts
+      .filter(w => w.category === group)
+      .reduce((sum, w) => sum + w.sets * w.reps * w.weight, 0),
+  }));
+
+  const pieData = radarData.map(d => ({ name: d.group, value: d.volume }));
+
+  const scatterData = workouts.map(w => ({
+    weight: Number(w.weight),
+    reps: Number(w.reps),
+  }));
+
   return (
     <div style={styles.container}>
-      {/* Page Title */}
       <h1 style={styles.title}>Track Your Workout</h1>
 
-      {/* Category Dropdown */}
-      <div style={styles.selector}>
-        <label><strong>Select Category:</strong></label>
-        <select
-          value={category}
-          onChange={(e) => setCategory(e.target.value)}
-          style={styles.dropdown}
-        >
-          {Object.keys(workoutOptions).map((key) => (
-            <option key={key} value={key}>
-              {key}
-            </option>
+      <div style={styles.fixedCategoryHeader}>
+        <h2 style={styles.subTitle}>Select Workout Type</h2>
+        <div style={styles.gridBodyParts}>
+          {bodyParts.map((part) => (
+            <div
+              key={part}
+              style={styles.bodyCard(category === part)}
+              onClick={() => setCategory(part)}
+            >
+              <img src={`/images/${part.toLowerCase()}.png`} alt={part} style={styles.bodyImage} />
+              <span>{part}</span>
+            </div>
           ))}
-        </select>
+        </div>
       </div>
 
-      {/* Exercise Selection Grid */}
-      <div style={styles.grid}>
+      <h2 style={styles.subTitle}>Select Exercise</h2>
+      <div style={styles.gridExercises}>
         {workoutOptions[category].map((exercise) => (
           <div
             key={exercise}
@@ -130,18 +145,17 @@ const TrackWorkout = () => {
         ))}
       </div>
 
-      {/* Input Panel for Selected Exercise */}
       {selectedExercise && (
         <div style={styles.inputPanel}>
           <h2 style={styles.subTitle}>Log: {selectedExercise}</h2>
-          <div style={styles.inputGroup}>
+          <div style={styles.inputGroupPremium}>
             <input
               name="sets"
               value={inputData.sets}
               onChange={handleInputChange}
               type="number"
               placeholder="Sets"
-              style={styles.input}
+              style={styles.inputPremium}
             />
             <input
               name="reps"
@@ -149,7 +163,7 @@ const TrackWorkout = () => {
               onChange={handleInputChange}
               type="number"
               placeholder="Reps"
-              style={styles.input}
+              style={styles.inputPremium}
             />
             <input
               name="weight"
@@ -157,14 +171,14 @@ const TrackWorkout = () => {
               onChange={handleInputChange}
               type="number"
               placeholder="Weight"
-              style={styles.input}
+              style={styles.inputPremium}
             />
             <input
               name="date"
               value={inputData.date}
               onChange={handleInputChange}
               type="date"
-              style={styles.input}
+              style={styles.inputPremium}
             />
           </div>
           <button
@@ -179,37 +193,21 @@ const TrackWorkout = () => {
             Save Workout
           </button>
           {successMessage && (
-            <p style={{ color: 'green', marginTop: '10px' }}>
-              {successMessage}
-            </p>
+            <p style={{ color: 'green', marginTop: '10px' }}>{successMessage}</p>
           )}
         </div>
       )}
 
-      {/* Progress Chart */}
-      <h2 style={styles.chartTitle}>Progress Chart</h2>
-      {filteredData.length === 0 ? (
-        <p>No workout data available.</p>
-      ) : (
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart
-            data={filteredData}
-            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis dataKey="weight" />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="weight"
-              stroke="#60a5fa"
-              name="Weight Lifted"
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      )}
+      <h2 style={styles.chartTitle}>Visual Analytics</h2>
+      <WorkoutCharts
+        data={filteredData.map(d => ({
+          ...d,
+          volume: d.sets * d.reps * d.weight
+        }))}
+        radarData={radarData}
+        pieData={pieData}
+        scatterData={scatterData}
+      />
     </div>
   );
 };

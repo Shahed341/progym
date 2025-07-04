@@ -3,10 +3,10 @@
 const trackWorkoutStyles = {
   container: {
     padding: '2rem',
-    maxWidth: '1000px',
+    maxWidth: '1200px',
     margin: '0 auto',
-    backgroundColor: '#ffffff', // full white background
-    color: '#1f2937', // dark gray text
+    backgroundColor: '#ffffff',
+    color: '#1A3636',
     minHeight: '100vh',
     boxSizing: 'border-box',
   },
@@ -16,9 +16,44 @@ const trackWorkoutStyles = {
     fontWeight: 'bold',
     marginBottom: '2rem',
     textAlign: 'center',
-    background: 'linear-gradient(to right, #facc15, #fcd34d)', // yellow gradient
+    background: 'linear-gradient(to right, #D6BD98, #fcd34d)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
+  },
+
+  fixedCategoryHeader: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 50,
+    backgroundColor: '#ffffff',
+    paddingBottom: '1rem',
+    marginBottom: '1rem',
+  },
+
+  gridBodyParts: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))',
+    gap: '1rem',
+    marginBottom: '1.5rem',
+  },
+
+  bodyCard: (isSelected) => ({
+    padding: '0.5rem',
+    border: `2px solid ${isSelected ? '#D6BD98' : '#677D6A'}`,
+    borderRadius: '1rem',
+    textAlign: 'center',
+    cursor: 'pointer',
+    backgroundColor: isSelected ? '#fef3c7' : '#f3f4f6',
+    color: isSelected ? '#1A3636' : '#40534C',
+    fontWeight: 'bold',
+    transition: '0.3s ease',
+  }),
+
+  bodyImage: {
+    width: '60px',
+    height: '60px',
+    objectFit: 'contain',
+    marginBottom: '0.5rem',
   },
 
   selector: {
@@ -31,13 +66,13 @@ const trackWorkoutStyles = {
 
   dropdown: {
     border: '1px solid #d1d5db',
-    backgroundColor: '#f3f4f6', // light gray background
-    color: '#1f2937', // dark gray text
+    backgroundColor: '#f3f4f6',
+    color: '#1f2937',
     padding: '0.5rem',
     borderRadius: '0.375rem',
   },
 
-  grid: {
+  gridExercises: {
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
     gap: '1rem',
@@ -46,62 +81,64 @@ const trackWorkoutStyles = {
 
   exerciseCard: (isSelected) => ({
     padding: '1rem',
-    border: `2px solid ${isSelected ? '#facc15' : '#9ca3af'}`, // yellow or gray border
+    border: `2px solid ${isSelected ? '#D6BD98' : '#9ca3af'}`,
     borderRadius: '0.5rem',
     textAlign: 'center',
     cursor: 'pointer',
-    backgroundColor: isSelected ? '#fef9c3' : '#e5e7eb', // soft yellow or gray
-    color: isSelected ? '#78350f' : '#1f2937',
-    transition: 'all 0.3s ease-in-out',
+    backgroundColor: isSelected ? '#f5f5dc' : '#e5e7eb',
+    color: isSelected ? '#1A3636' : '#40534C',
     fontWeight: 'bold',
+    transition: 'all 0.3s ease-in-out',
   }),
 
   inputPanel: {
     padding: '1.5rem',
     border: '1px solid #d1d5db',
-    borderRadius: '0.5rem',
-    backgroundColor: '#f9fafb', // soft gray
+    borderRadius: '0.75rem',
+    backgroundColor: '#f9fafb',
     marginBottom: '2rem',
   },
 
-  inputGroup: {
+  inputGroupPremium: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
     gap: '1rem',
     marginTop: '1rem',
   },
 
-  input: {
-    border: '1px solid #d1d5db',
+  inputPremium: {
+    border: '1px solid #D6BD98',
     backgroundColor: '#ffffff',
-    color: '#1f2937',
-    padding: '0.5rem',
-    borderRadius: '0.375rem',
-    width: '100%',
+    color: '#1A3636',
+    padding: '0.75rem',
+    borderRadius: '0.5rem',
+    fontWeight: '500',
+    boxShadow: '0 1px 4px rgba(103, 125, 106, 0.2)',
+    transition: '0.3s ease',
   },
 
   button: {
     marginTop: '1rem',
     padding: '0.75rem 1.25rem',
-    backgroundColor: '#facc15',
-    color: '#1f2937',
+    backgroundColor: '#D6BD98',
+    color: '#1A3636',
     fontWeight: 'bold',
     border: 'none',
-    borderRadius: '0.375rem',
+    borderRadius: '0.5rem',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
   },
 
   buttonHover: {
-    backgroundColor: '#eab308',
+    backgroundColor: '#caa97c',
     transform: 'scale(1.03)',
-    boxShadow: '0 4px 12px rgba(250, 204, 21, 0.3)',
+    boxShadow: '0 4px 12px rgba(214, 189, 152, 0.4)',
   },
 
   subTitle: {
     fontSize: '1.25rem',
     fontWeight: '600',
-    color: '#facc15',
+    color: '#1A3636',
     marginBottom: '0.75rem',
     textAlign: 'left',
   },
@@ -111,7 +148,7 @@ const trackWorkoutStyles = {
     fontWeight: 'bold',
     marginTop: '3rem',
     marginBottom: '1rem',
-    background: 'linear-gradient(to right, #facc15, #fcd34d)',
+    background: 'linear-gradient(to right, #D6BD98, #fcd34d)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
     textAlign: 'center',
