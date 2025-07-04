@@ -7,14 +7,13 @@ const workoutChartsStyles = {
     marginTop: '2rem',
     padding: '1rem',
     backgroundColor: '#ffffff',
-    borderRadius: '1rem',
-    boxShadow: '0 4px 12px rgba(64, 83, 76, 0.15)',
   },
   chartContainer: {
     padding: '1rem',
     backgroundColor: '#f9fafb',
-    borderRadius: '0.75rem',
+    borderRadius: '1rem',
     border: '1px solid #d1d5db',
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)',
   },
   chartTitle: {
     textAlign: 'center',

@@ -26,15 +26,17 @@ import {
   Scatter,
   ZAxis,
 } from 'recharts';
+import styles from '../styles/WorkoutCharts';
 
 const COLORS = ['#1A3636', '#40534C', '#677D6A', '#D6BD98', '#a0aec0'];
 
 const WorkoutCharts = ({ data, radarData, pieData, scatterData }) => {
   return (
-    <div style={{ display: 'grid', gap: '2rem', marginTop: '2rem' }}>
+    <div style={styles.section}>
       {/* Line Chart */}
-      <div>
-        <h3 style={{ textAlign: 'center' }}>Weight Over Time</h3>
+      <div style={styles.chartContainer}>
+        <h3 style={styles.chartTitle}>Weight Over Time</h3>
+        <p style={{ textAlign: 'center' }}>This graph shows the weight lifted for the selected exercise across different dates.</p>
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -48,8 +50,9 @@ const WorkoutCharts = ({ data, radarData, pieData, scatterData }) => {
       </div>
 
       {/* Bar Chart */}
-      <div>
-        <h3 style={{ textAlign: 'center' }}>Volume Per Day</h3>
+      <div style={styles.chartContainer}>
+        <h3 style={styles.chartTitle}>Volume Per Day</h3>
+        <p style={{ textAlign: 'center' }}>Shows total workout volume (sets × reps × weight) logged per day.</p>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={data}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -63,8 +66,9 @@ const WorkoutCharts = ({ data, radarData, pieData, scatterData }) => {
       </div>
 
       {/* Area Chart */}
-      <div>
-        <h3 style={{ textAlign: 'center' }}>Cumulative Volume</h3>
+      <div style={styles.chartContainer}>
+        <h3 style={styles.chartTitle}>Cumulative Volume</h3>
+        <p style={{ textAlign: 'center' }}>Visualizes the trend of total workout load over time using a smooth area graph.</p>
         <ResponsiveContainer width="100%" height={300}>
           <AreaChart data={data}>
             <defs>
@@ -83,8 +87,9 @@ const WorkoutCharts = ({ data, radarData, pieData, scatterData }) => {
       </div>
 
       {/* Radar Chart */}
-      <div>
-        <h3 style={{ textAlign: 'center' }}>Muscle Group Focus</h3>
+      <div style={styles.chartContainer}>
+        <h3 style={styles.chartTitle}>Muscle Group Focus</h3>
+        <p style={{ textAlign: 'center' }}>Compare workout volume distribution across major muscle groups.</p>
         <ResponsiveContainer width="100%" height={300}>
           <RadarChart data={radarData}>
             <PolarGrid />
@@ -96,8 +101,9 @@ const WorkoutCharts = ({ data, radarData, pieData, scatterData }) => {
       </div>
 
       {/* Pie Chart */}
-      <div>
-        <h3 style={{ textAlign: 'center' }}>Workout Distribution</h3>
+      <div style={styles.chartContainer}>
+        <h3 style={styles.chartTitle}>Workout Distribution</h3>
+        <p style={{ textAlign: 'center' }}>This pie chart breaks down the percentage of total volume spent on each category.</p>
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
             <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#40534C" label>
@@ -111,8 +117,9 @@ const WorkoutCharts = ({ data, radarData, pieData, scatterData }) => {
       </div>
 
       {/* Scatter Plot */}
-      <div>
-        <h3 style={{ textAlign: 'center' }}>Weight vs Reps</h3>
+      <div style={styles.chartContainer}>
+        <h3 style={styles.chartTitle}>Weight vs Reps</h3>
+        <p style={{ textAlign: 'center' }}>Helps understand how weight lifted varies with number of repetitions.</p>
         <ResponsiveContainer width="100%" height={300}>
           <ScatterChart>
             <CartesianGrid />
