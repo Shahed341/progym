@@ -38,22 +38,31 @@ const trackWorkoutStyles = {
   },
 
   bodyCard: (isSelected) => ({
-    padding: '0.5rem',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: '1rem',
+    transition: 'transform 0.3s ease',
     border: `2px solid ${isSelected ? '#D6BD98' : '#677D6A'}`,
     borderRadius: '1rem',
-    textAlign: 'center',
-    cursor: 'pointer',
     backgroundColor: isSelected ? '#fef3c7' : '#f3f4f6',
     color: isSelected ? '#1A3636' : '#40534C',
-    fontWeight: 'bold',
-    transition: '0.3s ease',
+    cursor: 'pointer',
+    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
   }),
 
   bodyImage: {
-    width: '60px',
-    height: '60px',
+    width: '70px',
+    height: '70px',
     objectFit: 'contain',
+    transition: 'transform 0.3s ease',
     marginBottom: '0.5rem',
+  },
+
+  bodyLabel: {
+    fontWeight: '600',
+    marginTop: '0.25rem',
   },
 
   selector: {
