@@ -19,7 +19,6 @@ function GymBot() {
     const init = async () => {
       const sessionList = await fetchSessions(user?.id);
       setSessions(sessionList);
-
       if (sessionList.length > 0) {
         setActiveSessionId(sessionList[0].id);
         setMessages(sessionList[0].messages);
@@ -82,37 +81,43 @@ function GymBot() {
   };
 
   return (
-    <div style={styles.chatLayout}>
-      <button style={styles.toggleSidebarButton} onClick={() => setSidebarVisible(!sidebarVisible)}>
-        {sidebarVisible ? '←' : '→'}
-      </button>
+    <div style={styles.layout}>
+      {sidebarVisible ? (
+        <div style={{ ...styles.sidebar }}>
+          <div style={styles.sidebarControls}>
+            <button style={styles.controlButton} onClick={handleNewChat}>+ New Chat</button>
+            <button style={styles.controlButton} onClick={() => setSidebarVisible(false)}>← Collapse</button>
+          </div>
 
-      <div style={{
-        ...styles.sidebar,
-        ...(sidebarVisible ? {} : styles.sidebarHidden),
-      }}>
-        <div style={styles.sidebarTop}>
-          <button style={styles.newChatButton} onClick={handleNewChat}>
-            + New Chat
-          </button>
-          <h3 style={styles.sidebarTitle}>💬 GymBot Chats</h3>
-          <ul style={styles.sidebarList}>
+          <div style={styles.chatList}>
             {sessions.map((session) => (
-              <li
+              <div
                 key={session.id}
-                style={styles.sessionItem}
+                style={styles.chatItem}
                 onClick={() => switchSession(session)}
               >
-                {session.title || `Session on ${new Date(session.createdAt).toLocaleDateString()}`}
-              </li>
+                <span>{session.title || `Session ${session.id}`}</span>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSessions((prev) => prev.filter((s) => s.id !== session.id));
+                  }}
+                  style={{ background: 'none', color: 'red', border: 'none', cursor: 'pointer' }}
+                >✖</button>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
-      </div>
+      ) : (
+        <button
+          style={styles.toggleSidebarButton}
+          onClick={() => setSidebarVisible(true)}
+        >
+          ☰
+        </button>
+      )}
 
-      <div style={styles.container}>
-        <h2 style={styles.title}>🏋️ Premium GymBot Assistant</h2>
-
+      <div style={styles.chatContainer}>
         <div style={styles.chatBox}>
           {messages.map((msg, index) => (
             <div

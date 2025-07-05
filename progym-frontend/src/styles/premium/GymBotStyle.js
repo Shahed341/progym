@@ -1,26 +1,26 @@
-// src/styles/GymBotStyle.js
+// src/styles/premium/GymBotStyle.js
 
 const styles = {
-  chatLayout: {
+  layout: {
     display: 'flex',
     height: '100vh',
     width: '100vw',
+    backgroundColor: '#212121',
     overflow: 'hidden',
-    backgroundColor: '#202123',
-    color: '#fff',
     fontFamily: 'Arial, sans-serif',
-    position: 'relative',
   },
+
   sidebar: {
     width: '260px',
-    backgroundColor: '#000000',
-    padding: '20px 16px',
-    borderRight: '1px solid #343541',
+    backgroundColor: '#181818',
+    color: '#fff',
     display: 'flex',
     flexDirection: 'column',
+    padding: 0,
     transition: 'transform 0.3s ease-in-out',
     zIndex: 10,
   },
+
   sidebarHidden: {
     transform: 'translateX(-100%)',
     position: 'absolute',
@@ -28,110 +28,120 @@ const styles = {
     left: 0,
     height: '100%',
   },
+
+  sidebarControls: {
+    display: 'flex',
+    flexDirection: 'row',
+    borderBottom: '1px solid #2c2c2e',
+    padding: '10px',
+    gap: '10px',
+    backgroundColor: '#212121',
+  },
+
+  controlButton: {
+    flex: 1,
+    padding: '12px',
+    backgroundColor: '#303030',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '50px',
+    fontWeight: 'bold',
+    fontSize: '14px',
+    cursor: 'pointer',
+  },
+
+  chatList: {
+    flex: 1,
+    overflowY: 'auto',
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+  chatItem: {
+    padding: '14px',
+    backgroundColor: '#303030',
+    borderBottom: '1px solid #2c2c2e',
+    color: '#fff',
+    fontSize: '14px',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    cursor: 'pointer',
+  },
+
   toggleSidebarButton: {
     position: 'absolute',
     top: '20px',
     left: '20px',
-    backgroundColor: '#343541',
+    backgroundColor: '#10a37f',
     color: '#fff',
     border: 'none',
-    borderRadius: '6px',
-    padding: '8px 10px',
+    borderRadius: '50px',
+    padding: '10px 14px',
     cursor: 'pointer',
     zIndex: 20,
   },
-  sidebarTop: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '10px',
-  },
-  newChatButton: {
-    padding: '10px 12px',
-    backgroundColor: '#343541',
-    color: '#fff',
-    border: 'none',
-    borderRadius: '8px',
-    fontSize: '14px',
-    cursor: 'pointer',
-    textAlign: 'left',
-  },
-  sidebarTitle: {
-    fontSize: '18px',
-    marginBottom: '10px',
-    color: '#D6BD98',
-  },
-  sidebarList: {
-    listStyle: 'none',
-    padding: 0,
-    overflowY: 'auto',
-    flex: 1,
-  },
-  sessionItem: {
-    backgroundColor: '#343541',
-    borderRadius: '6px',
-    padding: '10px',
-    color: '#fff',
-    marginTop: '8px',
-    fontSize: '13px',
-    cursor: 'pointer',
-  },
-  container: {
+
+  chatContainer: {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: '#202123',
-    padding: '20px 40px',
+    backgroundColor: '#212121',
     overflow: 'hidden',
   },
-  title: {
-    fontSize: '22px',
-    color: '#fff',
-    textAlign: 'center',
-    marginBottom: '16px',
-  },
+
   chatBox: {
     flex: 1,
-    backgroundColor: '#343541',
-    borderRadius: '10px',
-    padding: '20px',
     overflowY: 'auto',
+    backgroundColor: '#171717',
     display: 'flex',
     flexDirection: 'column',
-    marginBottom: '16px',
-    border: '1px solid #2c2c2e',
+    padding: '20px',
+    borderTop: '1px solid #2c2c2e',
+    borderBottom: '1px solid #2c2c2e',
   },
+
   message: {
     padding: '12px 16px',
     margin: '8px 0',
     borderRadius: '12px',
     maxWidth: '75%',
-    lineHeight: '1.5',
     fontSize: '15px',
+    lineHeight: '1.5',
   },
+
   userMessage: {
     alignSelf: 'flex-end',
     backgroundColor: '#10a37f',
     color: '#fff',
   },
+
   botMessage: {
     alignSelf: 'flex-start',
     backgroundColor: '#444654',
     color: '#fff',
   },
+
   form: {
     display: 'flex',
-    gap: '10px',
     alignItems: 'center',
+    gap: '10px',
+    padding: '20px',
+    backgroundColor: '#212121',
+    borderTop: '1px solid #2c2c2e',
   },
+
   input: {
     flex: 1,
     padding: '14px',
-    borderRadius: '10px',
-    border: '1px solid #555',
+    border: 'none',
+    borderRadius: '0',
     fontSize: '15px',
-    backgroundColor: '#343541',
+    backgroundColor: '#303030',
     color: '#fff',
+    outline: 'none',
   },
+
   imageButton: {
     height: '42px',
     width: '42px',
