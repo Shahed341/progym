@@ -9,7 +9,7 @@ const styles = {
     fontFamily: 'Arial, sans-serif',
   },
 
-  // SIDEBAR
+  // === SIDEBAR ===
   sidebar: {
     width: '260px',
     backgroundColor: '#181818',
@@ -62,6 +62,32 @@ const styles = {
     cursor: 'pointer',
   },
 
+  collapsedSidebar: {
+    width: '60px',
+    backgroundColor: '#181818',
+    color: '#fff',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: '10px',
+    gap: '10px',
+    zIndex: 10,
+  },
+
+  sidebarIconButton: {
+    width: '40px',
+    height: '40px',
+    fontSize: '18px',
+    lineHeight: '40px',
+    textAlign: 'center',
+    color: '#fff',
+    backgroundColor: '#303030',
+    border: 'none',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    boxShadow: '0 2px 6px rgba(0,0,0,0.4)',
+  },
+
   toggleSidebarButton: {
     position: 'absolute',
     top: '16px',
@@ -80,7 +106,7 @@ const styles = {
     zIndex: 20,
   },
 
-  // CHAT AREA
+  // === CHAT AREA ===
   chatContainer: {
     flex: 1,
     display: 'flex',
@@ -125,66 +151,45 @@ const styles = {
     color: '#fff',
   },
 
+  // === INPUT FORM ===
   // FORM
-  form: {
-    display: 'flex',
-    alignItems: 'center',
-    padding: '20px',
-    gap: '10px',
-    height: '80px',
-    backgroundColor: '#171717',
-    borderTop: '1px solid #2c2c2e',
-    boxSizing: 'border-box',
-  },
+form: {
+  display: 'flex',
+  alignItems: 'center',
+  height: '72px',
+  backgroundColor: '#171717',
+  padding: 0,
+  margin: 0,
+  border: 'none',
+  gap: '10px',
+  boxShadow: 'none',
+  borderTop: 'none',
+},
 
-  input: {
-    flex: 1,
-    height: '42px',
-    padding: '0 14px',
-    fontSize: '15px',
-    color: '#fff',
-    backgroundColor: '#252525',
-    border: '1px solid #333',
-    borderRadius: '8px',
-    outline: 'none',
-    boxShadow: 'none',
-  },
+input: {
+  flex: 1,
+  height: '42px',
+  fontSize: '15px',
+  color: '#fff',
+  backgroundColor: '#252525',
+  border: 'none',
+  borderRadius: '24px',
+  outline: 'none',
+  padding: '0 16px',
+  margin: 0,
+  boxShadow: 'none',
+},
 
   imageButton: {
     width: '42px',
     height: '42px',
-    padding: 0,
     background: 'none',
     border: 'none',
+    padding: 0,
+    margin: 0,
     cursor: 'pointer',
     overflow: 'hidden',
   },
-  collapsedSidebar: {
-  width: '60px',
-  backgroundColor: '#181818',
-  color: '#fff',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  paddingTop: '10px',
-  gap: '10px',
-  zIndex: 10,
-},
-
-sidebarIconButton: {
-  width: '40px',
-  height: '40px',
-  fontSize: '18px',
-  color: '#fff',
-  backgroundColor: '#303030',
-  border: 'none',
-  borderRadius: '50%',
-  cursor: 'pointer',
-  textAlign: 'center',
-  lineHeight: '40px',
-  boxShadow: '0 2px 6px rgba(0,0,0,0.4)',
-}
-
 };
 
 export default styles;
