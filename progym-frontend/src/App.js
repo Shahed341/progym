@@ -27,21 +27,17 @@ function App() {
   const location = useLocation();
   const isGymBotPage = location.pathname === '/premium/gymbot';
 
-  return isGymBotPage ? (
-    // 🔒 Fullscreen fixed layout for GymBot with no scroll
-    <div style={{ height: '100vh', width: '100vw', overflow: 'hidden', position: 'relative' }}>
-      <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 999 }}>
-        <Navbar />
-      </div>
-      <div style={{ height: '100vh', paddingTop: '56px' }}>
-        <GymBot />
-      </div>
-    </div>
-  ) : (
-    // 🌐 Regular layout for all other pages
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+  return (
+    <>
       <Navbar />
-      <div style={{ flex: 1 }}>
+
+      <div
+        style={{
+          minHeight: isGymBotPage ? 'calc(100vh - 72px)' : '100vh',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <Routes>
           <Route path="/" element={<Home user={user} />} />
           <Route path="/register" element={<Register />} />
@@ -61,8 +57,9 @@ function App() {
           <Route path="/premium/workouts" element={<Workouts />} />
         </Routes>
       </div>
-      {location.pathname !== '/premium/gymbot' && <Footer />}
-    </div>
+
+      {!isGymBotPage && <Footer />}
+    </>
   );
 }
 

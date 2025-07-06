@@ -7,20 +7,17 @@ function Upgrade() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  // Handle upgrade click
   const handleUpgrade = async () => {
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/upgrade', {
+      await axios.post('http://localhost:5000/api/auth/upgrade', {
         userId: user.id,
       });
 
       alert('You are now a Premium member!');
       
-      // Update user role in context and localStorage
       const updatedUser = { ...user, role: 'premium' };
-      setUser(updatedUser); // Context will handle localStorage sync
+      setUser(updatedUser);
 
-      // Optionally redirect
       navigate('/premium');
     } catch (err) {
       console.error('Upgrade failed:', err);

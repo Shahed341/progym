@@ -9,32 +9,32 @@ function Footer() {
         <div className="footer-section">
           <h4>Locations</h4>
           <ul>
-            <li><a href="#">Change City</a></li>
-            <li><a href="#">Virtual Tour</a></li>
-            <li><a href="#">Saskatoon Locations</a></li>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Facility Feedback</a></li>
+            <li><a href="/change-city">Change City</a></li>
+            <li><a href="/virtual-tour">Virtual Tour</a></li>
+            <li><a href="/saskatoon-locations">Saskatoon Locations</a></li>
+            <li><a href="/contact">Contact Us</a></li>
+            <li><a href="/feedback">Facility Feedback</a></li>
           </ul>
         </div>
         <div className="footer-section">
           <h4>Memberships</h4>
           <ul>
-            <li><a href="#">Sign Up</a></li>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Personal Training</a></li>
-            <li><a href="#">Resources</a></li>
-            <li><a href="#">Corporate Memberships</a></li>
+            <li><a href="/signup">Sign Up</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/personal-training">Personal Training</a></li>
+            <li><a href="/resources">Resources</a></li>
+            <li><a href="/corporate">Corporate Memberships</a></li>
           </ul>
         </div>
         <div className="footer-section">
           <h4>About</h4>
           <ul>
-            <li><a href="#">About Us</a></li>
-            <li><a href="#">Blog</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Become an Ambassador</a></li>
-            <li><a href="#">Child Care</a></li>
-            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/careers">Careers</a></li>
+            <li><a href="/ambassadors">Become an Ambassador</a></li>
+            <li><a href="/child-care">Child Care</a></li>
+            <li><a href="/privacy">Privacy Policy</a></li>
           </ul>
         </div>
       </div>

@@ -1,12 +1,11 @@
-// src/styles/premium/GymBotStyle.js
-
 const styles = {
   layout: {
     display: 'flex',
-    height: '100vh',
-    width: '100vw',
-    backgroundColor: '#212121',
+    flexDirection: 'row',
+    height: '100%',
+    width: '100%',
     overflow: 'hidden',
+    backgroundColor: '#212121',
     fontFamily: 'Arial, sans-serif',
   },
 
@@ -16,17 +15,7 @@ const styles = {
     color: '#fff',
     display: 'flex',
     flexDirection: 'column',
-    padding: 0,
-    transition: 'transform 0.3s ease-in-out',
     zIndex: 10,
-  },
-
-  sidebarHidden: {
-    transform: 'translateX(-100%)',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    height: '100%',
   },
 
   sidebarControls: {
@@ -86,6 +75,7 @@ const styles = {
     flex: 1,
     display: 'flex',
     flexDirection: 'column',
+    height: '100%',
     backgroundColor: '#212121',
     overflow: 'hidden',
   },
@@ -93,12 +83,13 @@ const styles = {
   chatBox: {
     flex: 1,
     overflowY: 'auto',
+    padding: '20px',
     backgroundColor: '#171717',
     display: 'flex',
     flexDirection: 'column',
-    padding: '20px',
-    borderTop: '1px solid #2c2c2e',
-    borderBottom: '1px solid #2c2c2e',
+    justifyContent: 'flex-start',
+    scrollbarWidth: 'thin',
+    scrollbarColor: '#888 #171717',
   },
 
   message: {
@@ -108,6 +99,8 @@ const styles = {
     maxWidth: '75%',
     fontSize: '15px',
     lineHeight: '1.5',
+    wordBreak: 'break-word',
+    overflowWrap: 'anywhere',
   },
 
   userMessage: {
@@ -125,20 +118,23 @@ const styles = {
   form: {
     display: 'flex',
     alignItems: 'center',
-    gap: '10px',
     padding: '20px',
+    gap: '10px',
     backgroundColor: '#212121',
     borderTop: '1px solid #2c2c2e',
+    height: '80px',
+    boxSizing: 'border-box',
   },
 
   input: {
     flex: 1,
-    padding: '14px',
-    border: 'none',
-    borderRadius: '0',
+    height: '100%',
+    padding: '0 14px',
     fontSize: '15px',
     backgroundColor: '#303030',
     color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
     outline: 'none',
   },
 
@@ -148,6 +144,8 @@ const styles = {
     border: 'none',
     background: 'none',
     cursor: 'pointer',
+    padding: 0,
+    overflow: 'hidden',
   },
 };
 

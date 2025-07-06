@@ -1,6 +1,4 @@
-// src/pages/premium/GymBot.jsx
-
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { askGymBot, fetchSessions, startNewSession } from './GymBotApi';
 import styles from '../../styles/premium/GymBotStyle';
 import { useUserContext } from '../../context/UserContext';
@@ -15,6 +13,18 @@ function GymBot() {
   const [sidebarVisible, setSidebarVisible] = useState(true);
   const messagesEndRef = useRef(null);
 
+  const handleNewChat = useCallback(async () => {
+    const newSession = await startNewSession(user?.id);
+    setActiveSessionId(newSession.id);
+    setMessages([
+      {
+        sender: 'bot',
+        text: `Yo ${user?.name || 'champ'}! 💪 GymBot here — new premium chat started. Ask me anything about gains!`,
+      },
+    ]);
+    setSessions((prev) => [newSession, ...prev]);
+  }, [user?.id, user?.name]);
+
   useEffect(() => {
     const init = async () => {
       const sessionList = await fetchSessions(user?.id);
@@ -27,23 +37,11 @@ function GymBot() {
       }
     };
     if (user?.id) init();
-  }, [user]);
+  }, [user, handleNewChat]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages]);
-
-  const handleNewChat = async () => {
-    const newSession = await startNewSession(user?.id);
-    setActiveSessionId(newSession.id);
-    setMessages([
-      {
-        sender: 'bot',
-        text: `Yo ${user?.name || 'champ'}! 💪 GymBot here — new premium chat started. Ask me anything about gains!`,
-      },
-    ]);
-    setSessions((prev) => [newSession, ...prev]);
-  };
 
   const sendMessage = async (msgText) => {
     const userMessage = { sender: 'user', text: msgText };
@@ -81,85 +79,104 @@ function GymBot() {
   };
 
   return (
-    <div style={styles.layout}>
-      {sidebarVisible ? (
-        <div style={styles.sidebar}>
-          <div style={styles.sidebarControls}>
-            <button
-              style={{ ...styles.controlButton, flex: '0 0 70%' }}
-              onClick={handleNewChat}
-            >
-              + New Chat
-            </button>
-            <button
-              style={{ ...styles.controlButton, flex: '0 0 30%' }}
-              onClick={() => setSidebarVisible(false)}
-            >
-              ←
-            </button>
-          </div>
-
-          <div style={styles.chatList}>
-            {sessions.map((session) => (
-              <div
-                key={session.id}
-                style={styles.chatItem}
-                onClick={() => switchSession(session)}
+    <div
+  style={{
+    height: 'calc(100vh - 72px)', // account for navbar height
+    width: '100vw',
+    overflow: 'hidden',
+  }}
+>
+      <div style={styles.layout}>
+        {sidebarVisible ? (
+          <div style={styles.sidebar}>
+            <div style={styles.sidebarControls}>
+              <button
+                style={{ ...styles.controlButton, flex: '0 0 70%' }}
+                onClick={handleNewChat}
               >
-                <span>{session.title || `Session ${session.id}`}</span>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSessions((prev) => prev.filter((s) => s.id !== session.id));
-                  }}
-                  style={{ background: 'none', color: 'red', border: 'none', cursor: 'pointer' }}
-                >✖</button>
+                + New Chat
+              </button>
+              <button
+                style={{ ...styles.controlButton, flex: '0 0 30%' }}
+                onClick={() => setSidebarVisible(false)}
+              >
+                ←
+              </button>
+            </div>
+
+            <div style={styles.chatList}>
+              {sessions.map((session) => (
+                <div
+                  key={session.id}
+                  style={styles.chatItem}
+                  onClick={() => switchSession(session)}
+                >
+                  <span>{session.title || `Session ${session.id}`}</span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSessions((prev) =>
+                        prev.filter((s) => s.id !== session.id)
+                      );
+                    }}
+                    style={{
+                      background: 'none',
+                      color: 'red',
+                      border: 'none',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    ✖
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <button
+            style={styles.toggleSidebarButton}
+            onClick={() => setSidebarVisible(true)}
+          >
+            ☰
+          </button>
+        )}
+
+        <div style={styles.chatContainer}>
+          <div style={styles.chatBox}>
+            {messages.map((msg, index) => (
+              <div
+                key={index}
+                style={{
+                  ...styles.message,
+                  ...(msg.sender === 'user'
+                    ? styles.userMessage
+                    : styles.botMessage),
+                }}
+              >
+                {msg.text}
               </div>
             ))}
+            <div ref={messagesEndRef} />
           </div>
-        </div>
-      ) : (
-        <button
-          style={styles.toggleSidebarButton}
-          onClick={() => setSidebarVisible(true)}
-        >
-          ☰
-        </button>
-      )}
 
-      <div style={styles.chatContainer}>
-        <div style={styles.chatBox}>
-          {messages.map((msg, index) => (
-            <div
-              key={index}
-              style={{
-                ...styles.message,
-                ...(msg.sender === 'user' ? styles.userMessage : styles.botMessage),
-              }}
-            >
-              {msg.text}
-            </div>
-          ))}
-          <div ref={messagesEndRef} />
-        </div>
-
-        <form style={styles.form} onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask anything like 'Back workout for mass?'"
-            style={styles.input}
-            disabled={loading}
-          />
-          <button type="submit" style={styles.imageButton} disabled={loading}>
-            <img
-              src="/images/gymbot/gymbot_enter_button.png"
-              alt="Send"
-              style={{ width: '100%', height: '100%' }}
+          <form style={styles.form} onSubmit={handleSubmit}>
+            <input
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Ask anything like 'Back workout for mass?'"
+              style={styles.input}
+              disabled={loading}
             />
-          </button>
-        </form>
+            <button type="submit" style={styles.imageButton} disabled={loading}>
+              <img
+                src="/images/gymbot/gymbot_enter_button.png"
+                alt="Send"
+                style={{ width: '100%', height: '100%' }}
+              />
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
