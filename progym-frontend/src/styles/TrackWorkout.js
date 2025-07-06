@@ -1,10 +1,8 @@
-// File: progym-frontend/src/styles/TrackWorkout.js
-
 const trackWorkoutStyles = {
   container: {
-    padding: '2rem',
-    maxWidth: '1200px',
-    margin: '0 auto',
+    padding: '2rem 1.5rem',       // ✅ Space on left/right while full width
+    width: '100%',
+    margin: 0,
     backgroundColor: '#ffffff',
     color: '#1A3636',
     minHeight: '100vh',
