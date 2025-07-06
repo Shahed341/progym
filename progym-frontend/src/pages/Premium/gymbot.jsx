@@ -83,10 +83,20 @@ function GymBot() {
   return (
     <div style={styles.layout}>
       {sidebarVisible ? (
-        <div style={{ ...styles.sidebar }}>
+        <div style={styles.sidebar}>
           <div style={styles.sidebarControls}>
-            <button style={styles.controlButton} onClick={handleNewChat}>+ New Chat</button>
-            <button style={styles.controlButton} onClick={() => setSidebarVisible(false)}>← Collapse</button>
+            <button
+              style={{ ...styles.controlButton, flex: '0 0 70%' }}
+              onClick={handleNewChat}
+            >
+              + New Chat
+            </button>
+            <button
+              style={{ ...styles.controlButton, flex: '0 0 30%' }}
+              onClick={() => setSidebarVisible(false)}
+            >
+              ←
+            </button>
           </div>
 
           <div style={styles.chatList}>

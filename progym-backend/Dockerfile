@@ -1,20 +1,20 @@
-# Use an official Node.js image
+# Use official Node.js image
 FROM node:20
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
+# Copy package files
 COPY package*.json ./
 
-# Install dependencies
+# Install all dependencies (includes nodemon from devDependencies)
 RUN npm install
 
 # Copy all backend files
 COPY . .
 
-# Expose backend port
+# Expose the backend port
 EXPOSE 5000
 
-# Command to run backend server
+# Start the server using the dev script with nodemon
 CMD ["npm", "run", "dev"]
