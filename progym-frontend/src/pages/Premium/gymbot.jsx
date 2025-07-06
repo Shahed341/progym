@@ -79,70 +79,47 @@ function GymBot() {
   };
 
   return (
-    <div
-      style={{
-        height: 'calc(100vh - 72px)',
-        width: '100vw',
-        overflow: 'hidden',
-        position: 'relative',
-      }}
-    >
+    <div style={{ height: 'calc(100vh - 72px)', width: '100vw', overflow: 'hidden', position: 'relative' }}>
       <div style={styles.layout}>
-        {sidebarVisible && (
-  <div style={styles.sidebar}>
-    <div style={styles.sidebarControls}>
-      <button
-        style={{ ...styles.controlButton, flex: '0 0 70%' }}
-        onClick={handleNewChat}
-      >
-        + New Chat
-      </button>
-      <button
-        style={{ ...styles.controlButton, flex: '0 0 30%' }}
-        onClick={() => setSidebarVisible(false)}
-      >
-        ←
-      </button>
-    </div>
+        {sidebarVisible ? (
+          <div style={styles.sidebar}>
+            <div style={styles.sidebarControls}>
+              <button style={{ ...styles.controlButton, flex: '0 0 70%' }} onClick={handleNewChat}>
+                + New Chat
+              </button>
+              <button style={{ ...styles.controlButton, flex: '0 0 30%' }} onClick={() => setSidebarVisible(false)}>
+                ←
+              </button>
+            </div>
+            <div style={styles.chatList}>
+              {sessions.map((session) => (
+                <div key={session.id} style={styles.chatItem} onClick={() => switchSession(session)}>
+                  <span>{session.title || `Session ${session.id}`}</span>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSessions((prev) => prev.filter((s) => s.id !== session.id));
+                    }}
+                    style={{
+                      background: 'none',
+                      color: 'red',
+                      border: 'none',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    ✖
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <div style={styles.collapsedSidebar}>
+            <button style={styles.sidebarIconButton} onClick={() => setSidebarVisible(true)}>☰</button>
+            <button style={styles.sidebarIconButton} onClick={handleNewChat}>＋</button>
+          </div>
+        )}
 
-    <div style={styles.chatList}>
-      {sessions.map((session) => (
-        <div
-          key={session.id}
-          style={styles.chatItem}
-          onClick={() => switchSession(session)}
-        >
-          <span>{session.title || `Session ${session.id}`}</span>
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setSessions((prev) =>
-                prev.filter((s) => s.id !== session.id)
-              );
-            }}
-            style={{
-              background: 'none',
-              color: 'red',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            ✖
-          </button>
-        </div>
-      ))}
-    </div>
-  </div>
-)}
-
-{!sidebarVisible && (
-  <button
-    style={styles.toggleSidebarButton}
-    onClick={() => setSidebarVisible(true)}
-  >
-    ☰
-  </button>
-)}
         <div style={styles.chatContainer}>
           <div style={styles.chatBox}>
             {messages.map((msg, index) => (
@@ -150,9 +127,7 @@ function GymBot() {
                 key={index}
                 style={{
                   ...styles.message,
-                  ...(msg.sender === 'user'
-                    ? styles.userMessage
-                    : styles.botMessage),
+                  ...(msg.sender === 'user' ? styles.userMessage : styles.botMessage),
                 }}
               >
                 {msg.text}
