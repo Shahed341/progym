@@ -1,62 +1,86 @@
 // src/styles/PremiumPageStyle.js
 
 const premiumStyles = {
-  container: {
+  fullPage: {
+    backgroundColor: '#F5F2EB', // cream white
+    minHeight: '100vh',
     padding: '60px 20px',
-    maxWidth: '1200px',
-    margin: '0 auto',
     boxSizing: 'border-box',
-    backgroundColor: '#111827',
-    color: '#f3f4f6',
+    overflowX: 'hidden',
+  },
+
+  contentWrapper: {
+    maxWidth: '1400px',
+    margin: '0 auto',
+    padding: '0 20px',
   },
 
   hero: {
     textAlign: 'center',
-    padding: '60px 20px',
-    backgroundColor: '#1f2937',
-    borderRadius: '12px',
-    marginBottom: '40px',
-    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.4)',
+    marginBottom: '60px',
   },
 
   heroTitle: {
-    fontSize: '36px',
+    fontSize: 'clamp(2.5rem, 5vw, 4rem)',
     fontWeight: 'bold',
-    color: '#facc15',
-    marginBottom: '10px',
+    color: '#1E1E1E',
+    marginBottom: '16px',
   },
 
   heroSubtitle: {
-    fontSize: '18px',
-    color: '#d1d5db',
+    fontSize: 'clamp(1.1rem, 2.5vw, 1.5rem)',
+    color: '#555555',
   },
 
-  sectionTitle: {
-    fontSize: '28px',
-    textAlign: 'center',
-    marginBottom: '30px',
-    color: '#facc15',
-  },
-
-  featureGrid: {
+  gridSection: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-    gap: '30px',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+    gap: '40px',
+    paddingTop: '20px',
   },
 
-  featureCardLink: {
+  cardLink: {
     textDecoration: 'none',
   },
 
   featureCard: {
-    backgroundColor: '#1f2937',
-    borderRadius: '12px',
-    padding: '20px',
-    textAlign: 'center',
-    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.3)',
-    color: '#f3f4f6',
+    backgroundColor: '#1E1E1E', // soft black
+    borderRadius: '16px',
+    padding: '30px 20px',
+    color: '#F5F5F5',
+    boxShadow: '0 8px 20px rgba(255, 60, 56, 0.2)', // red glow
+    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
     cursor: 'pointer',
-    transition: 'transform 0.2s ease',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    textAlign: 'center',
+    minHeight: '360px',
+  },
+
+  featureCardHover: {
+    transform: 'translateY(-6px) scale(1.05)',
+    boxShadow: '0 16px 32px rgba(255, 60, 56, 0.4)', // intense red glow on hover
+  },
+
+  cardImage: {
+    width: '100px',
+    height: '100px',
+    objectFit: 'contain',
+    marginBottom: '20px',
+  },
+
+  cardTitle: {
+    fontSize: '20px',
+    fontWeight: 'bold',
+    color: '#FF3C38', // premium red
+    marginBottom: '10px',
+  },
+
+  cardText: {
+    fontSize: '15px',
+    color: '#CCCCCC',
+    lineHeight: '1.6',
   },
 };
 
