@@ -1,42 +1,90 @@
-// src/styles/ProfileStyle.js
+// src/styles/ProfileStyles.js
 
 const profileStyles = {
-  container: {
-    padding: '40px',
-    textAlign: 'center',
-    color: '#f3f4f6', // light gray text
-    backgroundColor: '#111827', // dark background
+  pageWrapper: {
+    backgroundColor: '#F5F2EB', // soft white cream
+    minHeight: '100vh',
+    padding: '40px 20px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: '#1E1E1E',
   },
-  title: {
-    fontSize: '2.5rem',
-    marginBottom: '30px',
-    color: '#facc15', // royal gold
+  profileCard: {
+    backgroundColor: '#1E1E1E', // dark card
+    padding: '40px',
+    borderRadius: '20px',
+    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+    maxWidth: '520px',
+    width: '100%',
+    textAlign: 'center',
+    color: '#F5F5F5',
+  },
+  avatar: {
+    width: '100px',
+    height: '100px',
+    borderRadius: '50%',
+    border: '3px solid #4A4A4A', // ash border
+    marginBottom: '20px',
+  },
+  username: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    marginBottom: '8px',
+  },
+  email: {
+    fontSize: '1rem',
+    color: '#CCCCCC', // light gray
+    marginBottom: '16px',
+  },
+  premiumTag: {
+    color: '#D6BD98',
     fontWeight: 'bold',
   },
-  infoBox: {
-    backgroundColor: '#1f2937', // dark card
-    padding: '30px',
-    borderRadius: '12px',
-    boxShadow: '0 6px 18px rgba(0,0,0,0.5)',
-    maxWidth: '500px',
-    margin: '0 auto',
-    color: '#f3f4f6',
+  buttonGroup: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '12px',
+    marginTop: '20px',
   },
   editButton: {
-    marginTop: '20px',
     padding: '10px 24px',
     fontSize: '16px',
     borderRadius: '8px',
-    border: '1px solid #facc15',
-    backgroundColor: '#1f2937',
-    color: '#facc15',
+    border: '1px solid #888888', // ash border
+    backgroundColor: '#2A2A2A',
+    color: '#F5F5F5',
     cursor: 'pointer',
     fontWeight: 'bold',
     transition: 'all 0.3s ease',
   },
-  editButtonHover: {
-    backgroundColor: '#facc15',
-    color: '#1f2937',
+  logoutButton: {
+    padding: '10px 24px',
+    fontSize: '16px',
+    borderRadius: '8px',
+    border: '1px solid #FF5C5C',
+    backgroundColor: '#FF5C5C',
+    color: '#FFFFFF',
+    cursor: 'pointer',
+    fontWeight: 'bold',
+    transition: 'background-color 0.3s ease',
+  },
+  premiumPanel: {
+    display: 'flex',
+    justifyContent: 'space-around',
+    marginTop: '30px',
+    flexWrap: 'wrap',
+    gap: '12px',
+  },
+  premiumButton: {
+    backgroundColor: '#4A4A4A',
+    padding: '10px 18px',
+    borderRadius: '10px',
+    color: '#FFFFFF',
+    fontWeight: 'bold',
+    textDecoration: 'none',
+    transition: 'background-color 0.3s ease',
   },
   centerBox: {
     display: 'flex',
@@ -44,7 +92,8 @@ const profileStyles = {
     alignItems: 'center',
     justifyContent: 'center',
     height: '80vh',
-    color: '#f3f4f6',
+    color: '#1E1E1E',
+    textAlign: 'center',
   },
   buttonRow: {
     marginTop: '20px',
@@ -53,23 +102,15 @@ const profileStyles = {
   },
   authButton: {
     padding: '10px 24px',
-    backgroundColor: '#facc15',
-    color: '#1f2937',
+    backgroundColor: '#4A4A4A',
+    color: '#FFFFFF',
     textDecoration: 'none',
     borderRadius: '8px',
     fontWeight: 'bold',
   },
-  logoutButton: {
-    marginTop: '10px',
-    padding: '10px 24px',
-    fontSize: '16px',
-    borderRadius: '8px',
-    border: '1px solid #dc2626',
-    backgroundColor: '#dc2626',
-    color: '#fff',
-    cursor: 'pointer',
-    fontWeight: 'bold',
-    transition: 'background-color 0.3s ease',
+  message: {
+    fontSize: '1.25rem',
+    color: '#333333',
   },
 };
 
