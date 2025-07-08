@@ -1,5 +1,3 @@
-// File: src/styles/Home.js
-
 const homeStyles = {
   container: {
     margin: '0',
@@ -140,6 +138,11 @@ const homeStyles = {
     boxShadow: '0 12px 20px rgba(0, 0, 0, 0.2)',
   },
 
+  premiumFeatureCardHover: {
+    transform: 'translateY(-4px)',
+    boxShadow: '0 12px 24px rgba(216, 0, 0, 0.5)',
+  },
+
   featureIcon: {
     width: '80px',
     height: '80px',
@@ -147,24 +150,7 @@ const homeStyles = {
     marginBottom: '16px',
   },
 
-  // ===== PREMIUM CARDS =====
-  premiumFeatureCard: {
-    background: 'linear-gradient(to bottom right, #ff6a5b, #ff3c38)',
-    color: '#ffffff',
-    borderRadius: '12px',
-    padding: '20px',
-    textAlign: 'center',
-    boxShadow: '0 8px 16px rgba(0, 0, 0, 0.2)',
-    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-    cursor: 'pointer',
-  },
-
-  premiumFeatureCardHover: {
-    transform: 'translateY(-4px)',
-    boxShadow: '0 12px 24px rgba(255, 60, 56, 0.5)',
-  },
-
-  // ===== PLACEHOLDER =====
+  // ===== PLACEHOLDER SECTION =====
   placeholderSection: {
     marginTop: '80px',
     padding: '0 20px',
