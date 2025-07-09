@@ -1,37 +1,34 @@
-// Step:1 import required modules
-const express = require('express'); // express framework for building APIs
-const cors = require('cors'); // middleware to handle cross-origin requests
-require('dotenv').config(); // load environment variables from .env file
+// Step 1: Import required modules
+const express = require('express');                  // Express framework
+const cors = require('cors');                        // CORS middleware
+require('dotenv').config();                          // Load environment variables
 
-const app = express(); // create an instance of express
+const app = express();                               // Create Express instance
 
+// Step 2: Global Middlewares
+app.use(cors());                                     // Allow frontend to access backend
+app.use(express.json());                             // Parse incoming JSON
+app.use(express.urlencoded({ extended: true }));     // Parse URL-encoded data
 
-// Step:2 Global Middlewares
-app.use(cors()); // enables cross-origin resource sharing so frontend can access backend
-app.use(express.json()); // middleware to parse JSON request bodies
-app.use(express.urlencoded({ extended: true })); // middleware to parse URL-encoded request bodies
-
-
-// IMPORT ROUTES from routes directory
-const authRoutes = require('./routes/auth'); 
+// Step 3: Import Routes
+const authRoutes = require('./routes/auth');
 const gymbotRoutes = require('./routes/gymbot');
 const workoutRoutes = require('./routes/workoutRoutes');
+const mealPlannerRoutes = require('./routes/mealPlanner'); // ✅ New: Meal Planner API
 
-
-// USE ROUTES / access them form frontend
+// Step 4: Register Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/gymbot', gymbotRoutes);
-app.use('/api/workouts', workoutRoutes); // add, view, delete workouts using router
+app.use('/api/workouts', workoutRoutes);
+app.use('/api/mealplan', mealPlannerRoutes);         // ✅ New: Expose /api/mealplan route
 
-
-// BASIC TEST ROUTE
+// Step 5: Basic Health Check
 app.get('/', (req, res) => {
-  res.send('ProGYM Backend Running');
+  res.send('ProGYM Backend Running ✅');
 });
 
-
-// START SERVER
+// Step 6: Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Backend server running on http://localhost:${PORT}`);
+  console.log(`✅ Backend server running on http://localhost:${PORT}`);
 });

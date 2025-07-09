@@ -1,25 +1,38 @@
-// src/pages/Premium/meal-planner.jsx
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styles from '../../styles/premium/MealPlannerStyles';
+import { UserContext } from '../../context/UserContext';
+import { getMealPlan } from '../../services/mealPlannerService';
 
 function MealPlanner() {
+  const { user } = useContext(UserContext);
   const [mealsPerDay, setMealsPerDay] = useState(3);
-  const [calorieGoal, setCalorieGoal] = useState(2000);
-  const [dietPreference, setDietPreference] = useState('veg');
+  const [dietPreference, setDietPreference] = useState('veg'); // reserved for future use
+  const [loading, setLoading] = useState(false);
+  const [mealPlan, setMealPlan] = useState(null);
+  const [error, setError] = useState('');
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert(`Meal Plan:
-    - Meals per day: ${mealsPerDay}
-    - Calorie goal: ${calorieGoal} kcal
-    - Preference: ${dietPreference === 'veg' ? 'Vegetarian' : 'Non-Vegetarian'}`);
+    setLoading(true);
+    setError('');
+    setMealPlan(null);
+
+    try {
+      const data = await getMealPlan(user.id, mealsPerDay);
+      setMealPlan(data);
+    } catch (err) {
+      setError('⚠️ Failed to generate meal plan. Please try again.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.heading}>Meal Planner</h1>
+      <h1 style={styles.heading}>Smart Meal Planner</h1>
       <p style={styles.subtext}>
-        Plan your meals based on your goals: weight loss, muscle gain, or maintenance.
+        Get a personalized meal plan based on your profile and goals.
       </p>
 
       <form onSubmit={handleSubmit} style={styles.form}>
@@ -30,23 +43,10 @@ function MealPlanner() {
             onChange={(e) => setMealsPerDay(Number(e.target.value))}
             style={styles.input}
           >
-            {[1, 2, 3, 4, 5, 6].map((n) => (
+            {[2, 3, 4, 5, 6].map((n) => (
               <option key={n} value={n}>{n}</option>
             ))}
           </select>
-        </label>
-
-        <label style={styles.label}>
-          Calorie Goal:
-          <input
-            type="number"
-            value={calorieGoal}
-            onChange={(e) => setCalorieGoal(Number(e.target.value))}
-            style={styles.input}
-            min="1000"
-            max="5000"
-            step="50"
-          />
         </label>
 
         <label style={styles.label}>
@@ -55,14 +55,41 @@ function MealPlanner() {
             value={dietPreference}
             onChange={(e) => setDietPreference(e.target.value)}
             style={styles.input}
+            disabled
           >
             <option value="veg">Vegetarian</option>
             <option value="nonveg">Non-Vegetarian</option>
           </select>
+          <small style={{ fontSize: '12px', color: '#999' }}>Coming soon</small>
         </label>
 
-        <button type="submit" style={styles.button}>Generate Plan</button>
+        <button type="submit" style={styles.button} disabled={loading}>
+          {loading ? 'Generating...' : 'Generate Plan'}
+        </button>
       </form>
+
+      {error && <p style={{ color: 'red', marginTop: '20px' }}>{error}</p>}
+
+      {mealPlan && (
+        <div style={styles.results}>
+          <h2 style={styles.resultsHeading}>
+            Your Meal Plan ({mealPlan.calorieTarget} kcal)
+          </h2>
+
+          {mealPlan.suggestedMeals.map((meal) => (
+            <div key={meal.meal} style={styles.mealCard}>
+              <h3 style={styles.mealTitle}>Meal {meal.meal}</h3>
+              <ul style={styles.mealList}>
+                {meal.items.map((item, idx) => (
+                  <li key={idx}>
+                    {item.grams}g {item.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
