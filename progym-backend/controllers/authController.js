@@ -1,14 +1,22 @@
-// File: controllers/authController.js
-
 const bcrypt = require('bcryptjs'); // For securely hashing passwords
 const db = require('../config/db'); // MySQL DB connection pool
 
 // --- TASK 1: Register a new user ---
 const registerUser = async (req, res) => {
-  const { username, email, password } = req.body;
+  const {
+    username,
+    email,
+    password,
+    height_cm,
+    weight_kg,
+    age,
+    gender,
+    goal
+  } = req.body;
 
-  if (!username || !email || !password) {
-    return res.status(400).json({ message: 'Please fill all fields' });
+  // Validate required fields
+  if (!username || !email || !password || !height_cm || !weight_kg || !age || !gender || !goal) {
+    return res.status(400).json({ message: 'Please fill all required fields' });
   }
 
   try {
@@ -25,10 +33,22 @@ const registerUser = async (req, res) => {
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Insert new user
+    // Insert new user with extended profile
     await db.execute(
-      'INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)',
-      [username, email, hashedPassword, 'user']
+      `INSERT INTO users 
+       (username, email, password, role, height_cm, weight_kg, age, gender, goal) 
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        username,
+        email,
+        hashedPassword,
+        'user',
+        height_cm,
+        weight_kg,
+        age,
+        gender,
+        goal
+      ]
     );
 
     return res.status(201).json({ message: 'User registered successfully!' });
@@ -102,7 +122,6 @@ const upgradeToPremium = async (req, res) => {
   }
 };
 
-// Export controller functions
 module.exports = {
   registerUser,
   loginUser,

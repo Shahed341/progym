@@ -1,38 +1,39 @@
-// src/pages/Register.jsx
 import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import registerStyles from '../styles/Register';
-import { UserContext } from '../context/UserContext'; // Context to manage user state
+import { UserContext } from '../context/UserContext';
 
 function Register() {
   const { setUser } = useContext(UserContext);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
-    password: ''
+    password: '',
+    height_cm: '',
+    weight_kg: '',
+    age: '',
+    gender: 'male',
+    goal: 'maintenance'
   });
 
   const navigate = useNavigate();
 
-  // Handle input field changes
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Submitting form data:", formData); // Debug: View values being sent
+    console.log("Submitting form data:", formData);
 
     try {
-      // Step 1: Register the user
       await axios.post('http://localhost:5000/api/auth/register', formData, {
         headers: { 'Content-Type': 'application/json' }
       });
 
-      // Step 2: Log in the user automatically
       const loginRes = await axios.post('http://localhost:5000/api/auth/login', {
         email: formData.email,
         password: formData.password
@@ -40,11 +41,9 @@ function Register() {
 
       const loggedInUser = loginRes.data.user;
 
-      // Step 3: Save user to localStorage and context
       localStorage.setItem('user', JSON.stringify(loggedInUser));
       setUser(loggedInUser);
 
-      // Step 4: Redirect to home
       navigate('/');
     } catch (err) {
       console.error('Registration/Login failed:', err.response?.data || err.message);
@@ -84,6 +83,56 @@ function Register() {
             onChange={handleChange}
             style={registerStyles.input}
           />
+          <input
+            type="number"
+            name="height_cm"
+            placeholder="Height (cm)"
+            required
+            value={formData.height_cm}
+            onChange={handleChange}
+            style={registerStyles.input}
+          />
+          <input
+            type="number"
+            name="weight_kg"
+            placeholder="Weight (kg)"
+            required
+            value={formData.weight_kg}
+            onChange={handleChange}
+            style={registerStyles.input}
+          />
+          <input
+            type="number"
+            name="age"
+            placeholder="Age"
+            required
+            value={formData.age}
+            onChange={handleChange}
+            style={registerStyles.input}
+          />
+          <select
+            name="gender"
+            required
+            value={formData.gender}
+            onChange={handleChange}
+            style={registerStyles.input}
+          >
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+          <select
+            name="goal"
+            required
+            value={formData.goal}
+            onChange={handleChange}
+            style={registerStyles.input}
+          >
+            <option value="maintenance">Maintain</option>
+            <option value="cutting">Lose Fat</option>
+            <option value="bulking">Gain Muscle</option>
+          </select>
+
           <button type="submit" style={registerStyles.button}>Register</button>
         </form>
       </div>
