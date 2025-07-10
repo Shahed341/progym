@@ -13,8 +13,8 @@ CREATE TABLE IF NOT EXISTS users (
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
     role ENUM('user', 'premium') NOT NULL DEFAULT 'user',
-    height_cm INT,                      -- for meal planner
-    weight_kg INT,                      -- for meal planner
+    height_cm INT,
+    weight_kg INT,
     age INT,
     gender ENUM('male', 'female', 'other'),
     goal ENUM('cutting', 'bulking', 'maintenance'),
@@ -27,11 +27,11 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS workouts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    category VARCHAR(50) NOT NULL,             -- e.g. Chest, Legs
+    category VARCHAR(50) NOT NULL,
     exercise VARCHAR(100) NOT NULL,
     sets INT NOT NULL,
     reps INT NOT NULL,
-    weight DECIMAL(5,2) NOT NULL,              -- in kg/lbs
+    weight DECIMAL(5,2) NOT NULL,
     date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
@@ -84,6 +84,7 @@ CREATE TABLE IF NOT EXISTS meal_plans (
     total_carbs FLOAT,
     total_fat FLOAT,
     goal ENUM('cutting', 'bulking', 'maintenance'),
+    date DATE NOT NULL,  -- ✅ Manually inserted as CURDATE() in backend
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
@@ -94,10 +95,22 @@ CREATE TABLE IF NOT EXISTS meal_plans (
 CREATE TABLE IF NOT EXISTS meal_plan_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
     meal_plan_id INT NOT NULL,
-    meal_number INT NOT NULL,                   -- 1 = breakfast, 2 = lunch, etc.
+    meal_number INT NOT NULL,
     food_id INT NOT NULL,
     quantity_grams INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (meal_plan_id) REFERENCES meal_plans(id) ON DELETE CASCADE,
     FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE
+);
+
+-- ===========================
+-- WATER INTAKE TABLE (for hydration tracking)
+-- ===========================
+CREATE TABLE IF NOT EXISTS water_intake (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    date DATE NOT NULL,
+    amount_ml INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

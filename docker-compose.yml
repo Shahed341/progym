@@ -47,14 +47,15 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: shahed
+      MYSQL_DATABASE: progymdb
     volumes:
       - mysql-data:/var/lib/mysql
-      - ./progymdb.sql:/docker-entrypoint-initdb.d/progymdb.sql
+      - ./init-db:/docker-entrypoint-initdb.d
     restart: always
     networks:
       - progym-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pshahed"]
       interval: 10s
       timeout: 5s
       retries: 5

@@ -14,13 +14,15 @@ app.use(express.urlencoded({ extended: true }));     // Parse URL-encoded data
 const authRoutes = require('./routes/auth');
 const gymbotRoutes = require('./routes/gymbot');
 const workoutRoutes = require('./routes/workoutRoutes');
-const mealPlannerRoutes = require('./routes/mealPlanner'); // ✅ New: Meal Planner API
+const mealPlannerRoutes = require('./routes/mealPlanner');
+const progressRoutes = require('./routes/progressRoutes'); // ✅ NEW: Progress summary
 
 // Step 4: Register Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/gymbot', gymbotRoutes);
 app.use('/api/workouts', workoutRoutes);
-app.use('/api/mealplan', mealPlannerRoutes);         // ✅ New: Expose /api/mealplan route
+app.use('/api/mealplan', mealPlannerRoutes);
+app.use('/api/progress', progressRoutes);             // ✅ New route
 
 // Step 5: Basic Health Check
 app.get('/', (req, res) => {
