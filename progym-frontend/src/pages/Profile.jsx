@@ -23,8 +23,7 @@ function Profile() {
   };
 
   const handleEditProfile = () => {
-    alert('Redirect to profile edit page');
-    // navigate('/edit-profile');
+    navigate('/edit-profile');
   };
 
   const handleDeactivatePremium = () => {

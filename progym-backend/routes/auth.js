@@ -1,10 +1,13 @@
-// src/routes/auth.js
-
 const express = require('express');
 const router = express.Router();
 
 // Import controller functions
-const { registerUser, loginUser, upgradeToPremium } = require('../controllers/authController');
+const {
+  registerUser,
+  loginUser,
+  upgradeToPremium,
+  updateProfile, // 👈 add this
+} = require('../controllers/authController');
 
 // @route   POST /api/auth/register
 // @desc    Register a new user
@@ -20,5 +23,10 @@ router.post('/login', loginUser);
 // @desc    Upgrade user to premium role
 // @access  Public (should be protected in real apps)
 router.post('/upgrade', upgradeToPremium);
+
+// @route   PUT /api/auth/update-profile/:id
+// @desc    Update user profile data
+// @access  Public (should be protected in real apps)
+router.put('/update-profile/:id', updateProfile);
 
 module.exports = router;

@@ -21,6 +21,7 @@ import GymBot from './pages/premium/GymBot';
 import MealPlanner from './pages/premium/MealPlanner';
 import Supplements from './pages/premium/Supplements';
 import Workouts from './pages/premium/Workouts';
+import EditProfile from './pages/EditProfile';
 
 function App() {
   const { user } = useContext(UserContext);
@@ -55,6 +56,7 @@ function App() {
           <Route path="/premium/meal-planner" element={<MealPlanner />} />
           <Route path="/premium/supplements" element={<Supplements />} />
           <Route path="/premium/workouts" element={<Workouts />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
         </Routes>
       </div>
 
