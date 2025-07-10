@@ -1,7 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const mealPlannerController = require('../controllers/mealPlannerController');
+const { getMealPlan, saveMealPlan } = require('../controllers/mealPlannerController');
 
-router.get('/', mealPlannerController.getPersonalizedMealPlan);
+// Generate meal plan
+router.get('/', getMealPlan);
+
+// Save meal plan and water intake
+router.post('/save', saveMealPlan);
 
 module.exports = router;
