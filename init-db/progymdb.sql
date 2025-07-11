@@ -1,11 +1,11 @@
 -- ===========================
--- CREATE DATABASE IF NOT EXISTS
+-- CREATE DATABASE
 -- ===========================
 CREATE DATABASE IF NOT EXISTS progymdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE progymdb;
 
 -- ===========================
--- USERS TABLE (with profile fields)
+-- USERS TABLE
 -- ===========================
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -23,6 +23,7 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- ===========================
 -- WORKOUTS TABLE
+-- Matches backend query for workout progress
 -- ===========================
 CREATE TABLE IF NOT EXISTS workouts (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,30 +39,38 @@ CREATE TABLE IF NOT EXISTS workouts (
 );
 
 -- ===========================
--- GYMBOT SESSIONS TABLE
+-- MEALS TABLE
+-- Required for calorie and macro tracking
 -- ===========================
-CREATE TABLE IF NOT EXISTS gymbot_sessions (
+CREATE TABLE IF NOT EXISTS meals (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    title VARCHAR(255) DEFAULT 'Untitled Chat',
+    date DATE NOT NULL,
+    calories INT,
+    protein INT,
+    carbs INT,
+    fat INT,
+    meal_type ENUM('breakfast', 'lunch', 'dinner') DEFAULT 'lunch',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- ===========================
--- GYMBOT MESSAGES TABLE
+-- WATER INTAKE TABLE
+-- Required for hydration progress
 -- ===========================
-CREATE TABLE IF NOT EXISTS gymbot_messages (
+CREATE TABLE IF NOT EXISTS water_intake (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    session_id INT NOT NULL,
-    sender ENUM('user', 'bot') NOT NULL,
-    text TEXT NOT NULL,
+    user_id INT NOT NULL,
+    date DATE NOT NULL,
+    total_ml INT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (session_id) REFERENCES gymbot_sessions(id) ON DELETE CASCADE
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- ===========================
--- FOODS TABLE (master food data)
+-- FOODS TABLE
+-- Master food data used in meal plans
 -- ===========================
 CREATE TABLE IF NOT EXISTS foods (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -73,7 +82,8 @@ CREATE TABLE IF NOT EXISTS foods (
 );
 
 -- ===========================
--- MEAL PLANS TABLE (metadata)
+-- MEAL PLANS TABLE
+-- Metadata about generated plans
 -- ===========================
 CREATE TABLE IF NOT EXISTS meal_plans (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -84,13 +94,14 @@ CREATE TABLE IF NOT EXISTS meal_plans (
     total_carbs FLOAT,
     total_fat FLOAT,
     goal ENUM('cutting', 'bulking', 'maintenance'),
-    date DATE NOT NULL,  -- ✅ Manually inserted as CURDATE() in backend
+    date DATE NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
 -- ===========================
--- MEAL PLAN ITEMS TABLE (food assignments)
+-- MEAL PLAN ITEMS TABLE
+-- Food assignments within a plan
 -- ===========================
 CREATE TABLE IF NOT EXISTS meal_plan_items (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -104,13 +115,26 @@ CREATE TABLE IF NOT EXISTS meal_plan_items (
 );
 
 -- ===========================
--- WATER INTAKE TABLE (for hydration tracking)
+-- GYMBOT SESSIONS TABLE
+-- Stores chatbot conversation sessions
 -- ===========================
-CREATE TABLE IF NOT EXISTS water_intake (
+CREATE TABLE IF NOT EXISTS gymbot_sessions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
-    date DATE NOT NULL,
-    amount_ml INT NOT NULL,
+    title VARCHAR(255) DEFAULT 'Untitled Chat',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- ===========================
+-- GYMBOT MESSAGES TABLE
+-- Stores messages exchanged with the chatbot
+-- ===========================
+CREATE TABLE IF NOT EXISTS gymbot_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    session_id INT NOT NULL,
+    sender ENUM('user', 'bot') NOT NULL,
+    text TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (session_id) REFERENCES gymbot_sessions(id) ON DELETE CASCADE
 );
