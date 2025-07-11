@@ -14,26 +14,44 @@ function GymBot() {
   const messagesEndRef = useRef(null);
 
   const handleNewChat = useCallback(async () => {
-    const newSession = await startNewSession(user?.id);
-    setActiveSessionId(newSession.id);
-    setMessages([
-      {
-        sender: 'bot',
-        text: `Yo ${user?.name || 'champ'}! 💪 GymBot here — new premium chat started. Ask me anything about gains!`,
-      },
-    ]);
-    setSessions((prev) => [newSession, ...prev]);
+    try {
+      const newSession = await startNewSession(user?.id);
+      if (!newSession || !newSession.id) {
+        throw new Error('Failed to start session');
+      }
+
+      setActiveSessionId(newSession.id);
+      setMessages([
+        {
+          sender: 'bot',
+          text: `Yo ${user?.name || 'champ'}! 💪 GymBot here — new premium chat started. Ask me anything about gains!`,
+        },
+      ]);
+      setSessions((prev) => [newSession, ...prev]);
+    } catch (err) {
+      console.error('❌ Failed to start new session:', err);
+      setMessages([
+        {
+          sender: 'bot',
+          text: '⚠️ Failed to start new GymBot session. Please try again later.',
+        },
+      ]);
+    }
   }, [user?.id, user?.name]);
 
   useEffect(() => {
     const init = async () => {
-      const sessionList = await fetchSessions(user?.id);
-      setSessions(sessionList);
-      if (sessionList.length > 0) {
-        setActiveSessionId(sessionList[0].id);
-        setMessages(sessionList[0].messages);
-      } else {
-        handleNewChat();
+      try {
+        const sessionList = await fetchSessions(user?.id);
+        setSessions(sessionList);
+        if (sessionList.length > 0) {
+          setActiveSessionId(sessionList[0].id);
+          setMessages(sessionList[0].messages);
+        } else {
+          handleNewChat();
+        }
+      } catch (err) {
+        console.error('❌ Failed to initialize sessions:', err);
       }
     };
     if (user?.id) init();

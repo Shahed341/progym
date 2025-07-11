@@ -1,3 +1,5 @@
+// File: controllers/gymbotController.js
+
 const fetch = require('node-fetch');
 const db = require('../config/db');
 
@@ -6,17 +8,22 @@ const askGymBot = async (req, res) => {
   const { sessionId, message } = req.body;
 
   if (!sessionId || !message) {
-    return res.status(400).json({ reply: 'Missing session or message.' });
+    return res.status(400).json({ reply: '❗ Missing session ID or message.' });
   }
 
   try {
-    // Save user's message to DB
+    // Store user message
     await db.execute(
       'INSERT INTO gymbot_messages (session_id, sender, text) VALUES (?, ?, ?)',
       [sessionId, 'user', message]
     );
 
     const API_KEY = process.env.GOOGLE_API_KEY;
+    if (!API_KEY) {
+      console.error('❌ Missing GOOGLE_API_KEY');
+      return res.status(500).json({ reply: 'Gemini API key not configured.' });
+    }
+
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${API_KEY}`;
 
     const response = await fetch(apiUrl, {
@@ -28,37 +35,41 @@ const askGymBot = async (req, res) => {
     });
 
     const data = await response.json();
-    const reply =
-      data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim() ||
-      'Sorry, I didn’t catch that. Try again?';
+    // console.log("🔎 Gemini raw response:", JSON.stringify(data, null, 2)); // Uncomment for debugging
 
-    // Save bot's reply to DB
+    const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text?.trim();
+
+    const finalReply = reply || '🤖 Sorry, I didn’t catch that. Try again?';
+
+    // Store bot reply
     await db.execute(
       'INSERT INTO gymbot_messages (session_id, sender, text) VALUES (?, ?, ?)',
-      [sessionId, 'bot', reply]
+      [sessionId, 'bot', finalReply]
     );
 
-    res.json({ reply });
+    res.json({ reply: finalReply });
   } catch (err) {
     console.error('[GymBot Error]:', err.message);
-    res.status(500).json({ reply: 'Error while generating a reply.' });
+    res.status(500).json({ reply: '❌ An error occurred while generating a response.' });
   }
 };
 
 // POST /api/gymbot/start
 const startNewSession = async (req, res) => {
   const { userId } = req.body;
-  if (!userId) return res.status(400).json({ error: 'User ID missing' });
+
+  if (!userId) {
+    return res.status(400).json({ error: '❗ User ID is required.' });
+  }
 
   try {
     const [result] = await db.execute(
       'INSERT INTO gymbot_sessions (user_id, title) VALUES (?, ?)',
       [userId, 'Untitled Chat']
     );
-    const sessionId = result.insertId;
 
     res.json({
-      id: sessionId,
+      id: result.insertId,
       user_id: userId,
       title: 'Untitled Chat',
       messages: [],
@@ -66,13 +77,17 @@ const startNewSession = async (req, res) => {
     });
   } catch (err) {
     console.error('[GymBot Start Error]:', err.message);
-    res.status(500).json({ error: 'Failed to start session.' });
+    res.status(500).json({ error: '❌ Failed to create chat session.' });
   }
 };
 
 // GET /api/gymbot/sessions/:userId
 const getSessionsByUser = async (req, res) => {
   const { userId } = req.params;
+
+  if (!userId) {
+    return res.status(400).json({ error: '❗ User ID missing from request.' });
+  }
 
   try {
     const [sessions] = await db.execute(
@@ -86,17 +101,14 @@ const getSessionsByUser = async (req, res) => {
           'SELECT sender, text FROM gymbot_messages WHERE session_id = ? ORDER BY created_at ASC',
           [session.id]
         );
-        return {
-          ...session,
-          messages,
-        };
+        return { ...session, messages };
       })
     );
 
     res.json(sessionsWithMessages);
   } catch (err) {
     console.error('[GymBot Fetch Error]:', err.message);
-    res.status(500).json({ error: 'Failed to fetch sessions.' });
+    res.status(500).json({ error: '❌ Could not retrieve session data.' });
   }
 };
 
