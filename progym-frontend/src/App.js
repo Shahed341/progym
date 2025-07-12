@@ -23,6 +23,8 @@ import MealPlanner from './pages/premium/MealPlanner';
 import Supplements from './pages/premium/Supplements';
 import Workouts from './pages/premium/Workouts';
 import EditProfile from './pages/EditProfile';
+import CalorieTracker from './pages/CalorieTracker';
+
 
 function App() {
   const { user } = useContext(UserContext);
@@ -56,6 +58,7 @@ function App() {
           <Route path="/supplement-guide" element={<SupplementGuide />} />
           <Route path="/bulking" element={<BulkingStrategy />} />
           <Route path="/cutting" element={<CuttingStrategy />} />
+          <Route path="/calorie-tracker" element={<CalorieTracker />} />
 
           {/* Premium Tools */}
           <Route path="/premium" element={<PremiumPage />} />

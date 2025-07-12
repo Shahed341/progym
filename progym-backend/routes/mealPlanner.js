@@ -1,11 +1,14 @@
 const express = require('express');
-const router = express.Router();
-const { getMealPlan, saveMealPlan } = require('../controllers/mealPlannerController');
+const router  = express.Router();
+const { getMealPlan, saveMealPlan, addWater } = require('../controllers/mealPlannerController');
 
-// Generate meal plan
+// GET  /api/mealplan?userId=…&mealsPerDay=…
 router.get('/', getMealPlan);
 
-// Save meal plan and water intake
+// POST /api/mealplan/save
 router.post('/save', saveMealPlan);
+
+// POST /api/mealplan/water
+router.post('/water', addWater);
 
 module.exports = router;

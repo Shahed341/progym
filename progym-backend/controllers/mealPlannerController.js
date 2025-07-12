@@ -1,25 +1,25 @@
 const db = require('../config/db');
-const generateMealPlan = require('../services/generateMealPlan'); // No destructuring if using module.exports = function
+const generateMealPlan = require('../services/generateMealPlan');
 
-// GET /api/mealplan?userId=3&mealsPerDay=3
+// GET /api/mealplan?userId=<id>&mealsPerDay=<n>
 exports.getMealPlan = async (req, res) => {
   const { userId, mealsPerDay } = req.query;
-
   try {
-    // Fetch user profile and food list
-    const [[user]] = await db.query('SELECT * FROM users WHERE id = ?', [userId]);
+    const [[user]] = await db.query(
+      'SELECT id, height_cm, weight_kg, age, gender, goal FROM users WHERE id = ?',
+      [userId]
+    );
     const [foods] = await db.query('SELECT * FROM foods');
 
-    if (!user || !foods.length) {
+    if (!user || foods.length === 0) {
       return res.status(400).json({ message: 'User or food data not found' });
     }
 
-    // Generate meal plan logic
-    const plan = generateMealPlan(user, parseInt(mealsPerDay), foods);
-    res.json(plan);
+    const plan = generateMealPlan(user, parseInt(mealsPerDay, 10), foods);
+    return res.json(plan);
   } catch (err) {
     console.error('❌ Meal Plan Error:', err);
-    res.status(500).json({ message: 'Failed to generate meal plan' });
+    return res.status(500).json({ message: 'Failed to generate meal plan' });
   }
 };
 
@@ -35,53 +35,85 @@ exports.saveMealPlan = async (req, res) => {
     totalProtein,
     totalCarbs,
     totalFat,
-    meals // [{ meal: 1, items: [{ name, grams }] }]
+    meals
   } = req.body;
 
-  const conn = await db.getConnection();
-  await conn.beginTransaction();
-
   try {
-    // 1. Insert meal plan summary
-    const [planResult] = await conn.query(
-      `INSERT INTO meal_plans 
-       (user_id, meals_per_day, total_calories, total_protein, total_carbs, total_fat, goal, date)
+    // Insert daily summary
+    const [planResult] = await db.query(
+      `INSERT INTO meal_plans
+         (user_id, meals_per_day, total_calories, total_protein, total_carbs, total_fat, goal, date)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
-      [userId, parseInt(mealsPerDay), totalCalories, totalProtein, totalCarbs, totalFat, goal, date]
+      [
+        userId,
+        parseInt(mealsPerDay, 10),
+        totalCalories || 0,
+        totalProtein  || 0,
+        totalCarbs    || 0,
+        totalFat      || 0,
+        goal,
+        date
+      ]
     );
-
     const mealPlanId = planResult.insertId;
 
-    // 2. Add meal items to meal_plan_items table
-    for (const meal of meals) {
-      for (const item of meal.items) {
-        const [food] = await conn.query('SELECT id FROM foods WHERE name = ? LIMIT 1', [item.name]);
-        if (!food.length) continue;
+    // Clear existing items for this plan
+    await db.query(
+      'DELETE FROM meal_plan_items WHERE meal_plan_id = ?',
+      [mealPlanId]
+    );
 
-        await conn.query(
-          `INSERT INTO meal_plan_items 
-           (meal_plan_id, meal_number, food_id, quantity_grams)
+    // Insert new meal items
+    for (const meal of meals) {
+      const mealNumber = parseInt(meal.meal, 10);
+      for (const item of meal.items) {
+        const qty = Number(item.grams) || 0;
+        if (qty <= 0) continue;
+        const [[food]] = await db.query(
+          'SELECT id FROM foods WHERE name = ? LIMIT 1',
+          [item.name]
+        );
+        if (!food) continue;
+        await db.query(
+          `INSERT INTO meal_plan_items
+             (meal_plan_id, meal_number, food_id, quantity_grams)
            VALUES (?, ?, ?, ?)`,
-          [mealPlanId, meal.meal, food[0].id, item.grams]
+          [mealPlanId, mealNumber, food.id, qty]
         );
       }
     }
 
-    // 3. Save water intake for the same day
-    await conn.query(
-      `INSERT INTO water_intake (user_id, date, amount_ml)
-       VALUES (?, ?, ?)`,
-      [userId, date, parseInt(waterMl)]
+    // Insert/update water intake
+    await db.query(
+      `INSERT INTO water_intake (user_id, date, total_ml)
+       VALUES (?, ?, ?)
+       ON DUPLICATE KEY UPDATE total_ml = VALUES(total_ml)`,
+      [userId, date, Number(waterMl) || 0]
     );
 
-    await conn.commit();
-    res.status(200).json({ message: 'Meal plan and water intake saved successfully' });
-
+    return res.status(200).json({ message: 'Meal plan and water intake saved successfully' });
   } catch (err) {
-    await conn.rollback();
     console.error('❌ Save Meal Plan Error:', err);
-    res.status(500).json({ message: 'Failed to save meal plan' });
-  } finally {
-    conn.release();
+    return res.status(500).json({ message: 'Failed to save meal plan' });
+  }
+};
+
+// POST /api/mealplan/water
+exports.addWater = async (req, res) => {
+  const { user_id, date, total_ml } = req.body;
+  if (!user_id || !date) {
+    return res.status(400).json({ message: 'Missing required fields' });
+  }
+  try {
+    await db.query(
+      `INSERT INTO water_intake (user_id, date, total_ml)
+       VALUES (?, ?, ?)
+       ON DUPLICATE KEY UPDATE total_ml = VALUES(total_ml)`,
+      [user_id, date, total_ml]
+    );
+    return res.status(201).json({ message: 'Water intake logged' });
+  } catch (err) {
+    console.error('❌ Water intake error:', err);
+    return res.status(500).json({ message: 'Failed to log water intake' });
   }
 };
