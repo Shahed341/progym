@@ -38,9 +38,13 @@ function EditProfile() {
     const user = JSON.parse(localStorage.getItem('user'));
 
     try {
-      const res = await axios.put(`http://localhost:5000/api/auth/update-profile/${user.id}`, formData);
+      // no more `const res =` since we don't need the response object
+      await axios.put(`http://localhost:5000/api/auth/update-profile/${user.id}`, formData);
+
+      // update localStorage with the new values
       const updatedUser = { ...user, ...formData };
       localStorage.setItem('user', JSON.stringify(updatedUser));
+
       alert('Profile updated successfully');
       navigate('/profile');
     } catch (err) {
@@ -54,8 +58,22 @@ function EditProfile() {
       <h2>Edit Your Profile</h2>
       <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
         <input name="username" value={formData.username} onChange={handleChange} placeholder="Username" required />
-        <input name="height_cm" type="number" value={formData.height_cm} onChange={handleChange} placeholder="Height (cm)" required />
-        <input name="weight_kg" type="number" value={formData.weight_kg} onChange={handleChange} placeholder="Weight (kg)" required />
+        <input
+          name="height_cm"
+          type="number"
+          value={formData.height_cm}
+          onChange={handleChange}
+          placeholder="Height (cm)"
+          required
+        />
+        <input
+          name="weight_kg"
+          type="number"
+          value={formData.weight_kg}
+          onChange={handleChange}
+          placeholder="Weight (kg)"
+          required
+        />
         <input name="age" type="number" value={formData.age} onChange={handleChange} placeholder="Age" required />
         <select name="gender" value={formData.gender} onChange={handleChange}>
           <option value="male">Male</option>

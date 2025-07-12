@@ -1,0 +1,68 @@
+[
+  {
+    "id": "wheyprotein",
+    "name": "Whey Protein",
+    "image": "/images/supplements/WheyProtein.png",
+    "benefits": [
+      "Supports muscle growth",
+      "Aids in recovery"
+    ],
+    "usageGuide": [
+      "Take 1 scoop (25 g) post-workout",
+      "Mix with water or milk"
+    ],
+    "sideEffects": [
+      "May cause bloating",
+      "Possible digestive discomfort"
+    ]
+  },
+  {
+    "id": "fishoil",
+    "name": "Fish Oil",
+    "image": "/images/supplements/FishOil.png",
+    "benefits": [
+      "Supports heart and brain health",
+      "Reduces inflammation"
+    ],
+    "usageGuide": [
+      "Take 1–2 capsules daily with food"
+    ],
+    "sideEffects": [
+      "Fishy aftertaste",
+      "Possible mild stomach upset"
+    ]
+  },
+  {
+    "id": "creatine",
+    "name": "Creatine",
+    "image": "/images/supplements/Creatine.png",
+    "benefits": [
+      "Improves strength and power",
+      "Enhances muscle hydration"
+    ],
+    "usageGuide": [
+      "5 g daily, preferably post-workout",
+      "Mix with water or juice"
+    ],
+    "sideEffects": [
+      "Water retention",
+      "Rare cramping"
+    ]
+  },
+  {
+    "id": "bcaas",
+    "name": "BCAAs",
+    "image": "/images/supplements/BCAAs.png",
+    "benefits": [
+      "Supports muscle recovery",
+      "Reduces exercise fatigue"
+    ],
+    "usageGuide": [
+      "5–10 g before or during workouts"
+    ],
+    "sideEffects": [
+      "Generally well tolerated",
+      "Possible mild nausea"
+    ]
+  }
+]

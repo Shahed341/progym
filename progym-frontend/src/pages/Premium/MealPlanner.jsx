@@ -1,15 +1,13 @@
-// src/pages/premium/MealPlanner.jsx
 import React, { useState, useContext } from 'react';
 import styles from '../../styles/premium/MealPlannerStyles';
 import { UserContext } from '../../context/UserContext';
 import { getMealPlan, saveMealPlan } from '../../services/mealPlannerService';
-import axios from 'axios';
 
 function MealPlanner() {
   const { user } = useContext(UserContext);
   const [mealsPerDay, setMealsPerDay] = useState(3);
   const [waterMl, setWaterMl] = useState(2000);
-  const [dietPreference, setDietPreference] = useState('veg'); // reserved
+  const [dietPreference] = useState('veg'); // reserved
   const [loading, setLoading] = useState(false);
   const [mealPlan, setMealPlan] = useState(null);
   const [error, setError] = useState('');
@@ -97,7 +95,6 @@ function MealPlanner() {
           Dietary Preference:
           <select
             value={dietPreference}
-            onChange={(e) => setDietPreference(e.target.value)}
             style={styles.input}
             disabled
           >
