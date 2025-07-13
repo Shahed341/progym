@@ -1,140 +1,150 @@
+-- File: progymdb.sql
+-- Path: ./progymdb.sql
+
 -- ===========================
 -- CREATE DATABASE
 -- ===========================
-CREATE DATABASE IF NOT EXISTS progymdb CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+-- Create the main database for the ProGym application if it doesn't already exist,
+-- using UTF-8 character set for full Unicode support.
+CREATE DATABASE IF NOT EXISTS progymdb
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+-- Switch the connection to the ProGym database for subsequent operations
 USE progymdb;
 
 -- ===========================
 -- USERS TABLE
 -- ===========================
+-- Stores each user's account details and profile information.
 CREATE TABLE IF NOT EXISTS users (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL UNIQUE,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    password VARCHAR(255) NOT NULL,
-    role ENUM('user', 'premium') NOT NULL DEFAULT 'user',
-    height_cm INT,
-    weight_kg INT,
-    age INT,
-    gender ENUM('male', 'female', 'other'),
-    goal ENUM('cutting', 'bulking', 'maintenance'),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    id INT AUTO_INCREMENT PRIMARY KEY,         -- Unique user identifier
+    username VARCHAR(255) NOT NULL UNIQUE,    -- Login name, must be unique
+    email VARCHAR(255) NOT NULL UNIQUE,       -- User email, must be unique
+    password VARCHAR(255) NOT NULL,           -- Hashed password for authentication
+    role ENUM('user', 'premium') NOT NULL DEFAULT 'user',  -- Access level
+    height_cm INT,                            -- User height in centimeters
+    weight_kg INT,                            -- User weight in kilograms
+    age INT,                                  -- User age in years
+    gender ENUM('male', 'female', 'other'),   -- User gender
+    goal ENUM('cutting', 'bulking', 'maintenance'),  -- Fitness goal
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Record creation timestamp
 );
 
 -- ===========================
 -- WORKOUTS TABLE
--- Matches backend query for workout progress
 -- ===========================
+-- Logs individual workout entries for progress tracking.
 CREATE TABLE IF NOT EXISTS workouts (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    category VARCHAR(50) NOT NULL,
-    exercise VARCHAR(100) NOT NULL,
-    sets INT NOT NULL,
-    reps INT NOT NULL,
-    weight DECIMAL(5,2) NOT NULL,
-    date DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- Unique workout entry ID
+    user_id INT NOT NULL,                    -- Which user performed the workout
+    category VARCHAR(50) NOT NULL,           -- Workout category (e.g., chest, legs)
+    exercise VARCHAR(100) NOT NULL,          -- Name of the exercise performed
+    sets INT NOT NULL,                       -- Number of sets completed
+    reps INT NOT NULL,                       -- Number of repetitions per set
+    weight DECIMAL(5,2) NOT NULL,            -- Weight used, in kilograms
+    date DATE NOT NULL,                      -- Date of the workout
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Entry creation timestamp
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE  -- Link to users table
 );
 
 -- ===========================
 -- MEALS TABLE
--- Required for calorie and macro tracking
 -- ===========================
+-- Records daily meals for calorie and macro nutrient tracking.
 CREATE TABLE IF NOT EXISTS meals (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    date DATE NOT NULL,
-    calories INT,
-    protein INT,
-    carbs INT,
-    fat INT,
-    meal_type ENUM('breakfast', 'lunch', 'dinner') DEFAULT 'lunch',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- Unique meal entry ID
+    user_id INT NOT NULL,                    -- Which user logged the meal
+    date DATE NOT NULL,                      -- Date of the meal
+    calories INT,                            -- Total calories consumed
+    protein INT,                             -- Protein in grams
+    carbs INT,                               -- Carbohydrates in grams
+    fat INT,                                 -- Fat in grams
+    meal_type ENUM('breakfast', 'lunch', 'dinner') DEFAULT 'lunch',  -- Meal category
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Entry creation timestamp
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE  -- Link to users table
 );
 
 -- ===========================
 -- WATER INTAKE TABLE
--- Required for hydration progress
 -- ===========================
+-- Tracks daily hydration levels by total water consumed.
 CREATE TABLE IF NOT EXISTS water_intake (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    date DATE NOT NULL,
-    total_ml INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- Unique water intake entry ID
+    user_id INT NOT NULL,                    -- Which user logged the intake
+    date DATE NOT NULL,                      -- Date of water consumption
+    total_ml INT NOT NULL,                   -- Total water consumed in milliliters
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Entry creation timestamp
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE  -- Link to users table
 );
 
 -- ===========================
 -- FOODS TABLE
--- Master food data used in meal plans
 -- ===========================
+-- Master list of foods for meal planning and calorie lookup.
 CREATE TABLE IF NOT EXISTS foods (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    calories FLOAT NOT NULL,
-    protein_per_100g FLOAT NOT NULL,
-    carbs_per_100g FLOAT NOT NULL,
-    fat_per_100g FLOAT NOT NULL
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- Unique food item ID
+    name VARCHAR(100) NOT NULL,              -- Common name of the food
+    calories FLOAT NOT NULL,                 -- Calories per 100g
+    protein_per_100g FLOAT NOT NULL,         -- Protein per 100g
+    carbs_per_100g FLOAT NOT NULL,           -- Carbs per 100g
+    fat_per_100g FLOAT NOT NULL              -- Fat per 100g
 );
 
 -- ===========================
 -- MEAL PLANS TABLE
--- Metadata about generated plans
 -- ===========================
+-- Stores metadata for autogenerated meal plans.
 CREATE TABLE IF NOT EXISTS meal_plans (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    meals_per_day INT NOT NULL,
-    total_calories INT,
-    total_protein FLOAT,
-    total_carbs FLOAT,
-    total_fat FLOAT,
-    goal ENUM('cutting', 'bulking', 'maintenance'),
-    date DATE NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- Unique meal plan ID
+    user_id INT NOT NULL,                    -- Owner of the meal plan
+    meals_per_day INT NOT NULL,              -- Number of meals planned per day
+    total_calories INT,                      -- Total daily calories in the plan
+    total_protein FLOAT,                     -- Total daily protein
+    total_carbs FLOAT,                       -- Total daily carbs
+    total_fat FLOAT,                         -- Total daily fat
+    goal ENUM('cutting', 'bulking', 'maintenance'),  -- User's fitness goal for the plan
+    date DATE NOT NULL,                      -- Date the plan was generated
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Creation timestamp
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE  -- Link to users table
 );
 
 -- ===========================
 -- MEAL PLAN ITEMS TABLE
--- Food assignments within a plan
 -- ===========================
+-- Details which foods and quantities make up each meal in a plan.
 CREATE TABLE IF NOT EXISTS meal_plan_items (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    meal_plan_id INT NOT NULL,
-    meal_number INT NOT NULL,
-    food_id INT NOT NULL,
-    quantity_grams INT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (meal_plan_id) REFERENCES meal_plans(id) ON DELETE CASCADE,
-    FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- Unique item entry ID
+    meal_plan_id INT NOT NULL,               -- Which meal plan this item belongs to
+    meal_number INT NOT NULL,                -- Sequence number of the meal (e.g., 1 for breakfast)
+    food_id INT NOT NULL,                    -- Which food item is used
+    quantity_grams INT NOT NULL,             -- Quantity of food in grams
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Entry creation timestamp
+    FOREIGN KEY (meal_plan_id) REFERENCES meal_plans(id) ON DELETE CASCADE,  -- Link to meal_plans
+    FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE  -- Link to foods table
 );
 
 -- ===========================
 -- GYMBOT SESSIONS TABLE
--- Stores chatbot conversation sessions
 -- ===========================
+-- Tracks individual chat sessions with the GymBot feature.
 CREATE TABLE IF NOT EXISTS gymbot_sessions (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    title VARCHAR(255) DEFAULT 'Untitled Chat',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- Unique session ID
+    user_id INT NOT NULL,                    -- Which user started the session
+    title VARCHAR(255) DEFAULT 'Untitled Chat',  -- User-assigned session title
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Session start timestamp
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE  -- Link to users table
 );
 
 -- ===========================
 -- GYMBOT MESSAGES TABLE
--- Stores messages exchanged with the chatbot
 -- ===========================
+-- Stores each message exchanged between user and GymBot within a session.
 CREATE TABLE IF NOT EXISTS gymbot_messages (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    session_id INT NOT NULL,
-    sender ENUM('user', 'bot') NOT NULL,
-    text TEXT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (session_id) REFERENCES gymbot_sessions(id) ON DELETE CASCADE
+    id INT AUTO_INCREMENT PRIMARY KEY,        -- Unique message ID
+    session_id INT NOT NULL,                 -- Which session this message belongs to
+    sender ENUM('user', 'bot') NOT NULL,     -- Who sent the message
+    text TEXT NOT NULL,                      -- Content of the message
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  -- Message timestamp
+    FOREIGN KEY (session_id) REFERENCES gymbot_sessions(id) ON DELETE CASCADE  -- Link to sessions
 );
