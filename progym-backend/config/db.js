@@ -1,47 +1,52 @@
-// File: progym-backend/db.js
+// File: db.js
+// Path: ./progym-backend/db.js
 
-// Step 1: Import mysql2 with Promise support to use modern async/await syntax
+// Import the mysql2 library and enable Promise support for async/await operations
 const mysql = require('mysql2/promise');
 
-let pool; // Step 2: Declare a variable to hold the connection pool
+// Declare a variable to hold our connection pool instance
+let pool;
 
 /**
- * Step 3: Connects to the MySQL database using a connection pool.
- * The pool manages multiple connections for better performance.
+ * connectDB: Initializes a MySQL connection pool and tests connectivity.
+ * - Uses environment variables for credentials, with sensible defaults.
+ * - Retries on failure to ensure the server can eventually connect.
  */
 async function connectDB() {
   try {
-    // Step 4: Create a connection pool with the provided credentials or .env fallbacks
+    // Create a pool of connections to improve performance and manage concurrent queries
     pool = mysql.createPool({
-      host: process.env.DB_HOST || 'localhost',
-      user: process.env.DB_USER || 'root',
-      password: process.env.DB_PASS || 'shahed',
-      database: process.env.DB_NAME || 'progymdb',
-      waitForConnections: true, // wait instead of throwing an error if no connection is available
-      connectionLimit: 10,      // maximum number of concurrent connections
-      queueLimit: 0             // unlimited queue size
+      host: process.env.DB_HOST || 'localhost',   // Database host address
+      user: process.env.DB_USER || 'root',        // Database username
+      password: process.env.DB_PASS || 'shahed',  // Database password
+      database: process.env.DB_NAME || 'progymdb',// Database name
+      waitForConnections: true,                   // Queue connection requests rather than failing
+      connectionLimit: 10,                        // Maximum simultaneous connections
+      queueLimit: 0                               // No limit on queued requests
     });
 
-    // Step 5: Get one connection from the pool to test if the DB is reachable
+    // Test the connection by obtaining one connection from the pool
     const conn = await pool.getConnection();
-    console.log('Connected to MySQL Database');
+    console.log('Connected to MySQL Database');  // Success message
 
-    // Step 6: Release the connection back to the pool
+    // Release the test connection back into the pool for reuse
     conn.release();
   } catch (err) {
-    // Step 7: If connection fails, print error and retry after 5 seconds
+    // Log any errors encountered during connection setup
     console.error('Failed to connect to MySQL:', err.message);
-    setTimeout(connectDB, 5000); // Retry connection after delay
+    
+    // Wait 5 seconds and then retry connection (useful if DB isn't ready yet)
+    setTimeout(connectDB, 5000);
   }
 }
 
-// Step 8: Immediately call connectDB to establish the pool when server starts
+// Immediately run the connectDB function when this module is loaded
 connectDB();
 
 /**
- * Step 9: Export two utility functions:
- * - `execute`: used for INSERT, UPDATE, DELETE with parameters
- * - `query`: used for SELECT statements
+ * Export helper functions for database operations:
+ * - execute: For INSERT, UPDATE, DELETE queries (returns [result, fields])
+ * - query:   For SELECT queries (returns [rows, fields])
  */
 module.exports = {
   execute: (...args) => pool.execute(...args),

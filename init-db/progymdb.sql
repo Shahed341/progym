@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS meals (
 );
 
 -- ===========================
--- WATER INTAKE TABLE
+-- WATER INTAKE TABLE // later merge with meals
 -- ===========================
 -- Tracks daily hydration levels by total water consumed.
 CREATE TABLE IF NOT EXISTS water_intake (
