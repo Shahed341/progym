@@ -3,28 +3,32 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import ScrollToTop from './components/ScrollToTop'; // ✅ Scroll reset on route change
+import ScrollToTop from './components/ScrollToTop';
 import { UserContext } from './context/UserContext';
 
+// General Pages
 import Home from './pages/Home';
 import Register from './pages/Register';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
 import Upgrade from './pages/Upgrade';
+
+// General Tools
 import TrackWorkout from './pages/TrackWorkout';
 import Exercises from './pages/Exercises';
 import SupplementGuide from './pages/SupplementGuide';
 import BulkingStrategy from './pages/BulkingStrategy';
 import CuttingStrategy from './pages/CuttingStrategy';
-import PremiumPage from './pages/PremiumPage';
+import CalorieTracker from './pages/CalorieTracker';
+
+// Premium Tools
+import PremiumDashboard from './pages/premium/PremiumDashboard';
 import ProgressCharts from './pages/premium/ProgressCharts';
 import GymBot from './pages/premium/GymBot';
 import MealPlanner from './pages/premium/MealPlanner';
 import Supplements from './pages/premium/Supplements';
-import Workouts from './pages/premium/Workouts';
-import EditProfile from './pages/EditProfile';
-import CalorieTracker from './pages/CalorieTracker';
-
+import PremiumWorkouts from './pages/premium/PremiumWorkouts';
 
 function App() {
   const { user } = useContext(UserContext);
@@ -33,7 +37,7 @@ function App() {
 
   return (
     <>
-      <ScrollToTop /> {/* ✅ Ensures scroll reset on route change */}
+      <ScrollToTop />
       <Navbar />
 
       <div
@@ -61,12 +65,12 @@ function App() {
           <Route path="/calorie-tracker" element={<CalorieTracker />} />
 
           {/* Premium Tools */}
-          <Route path="/premium" element={<PremiumPage />} />
+          <Route path="/premium" element={<PremiumDashboard />} />
           <Route path="/premium/progress-charts" element={<ProgressCharts />} />
           <Route path="/premium/gymbot" element={<GymBot />} />
           <Route path="/premium/meal-planner" element={<MealPlanner />} />
           <Route path="/premium/supplements" element={<Supplements />} />
-          <Route path="/premium/workouts" element={<Workouts />} />
+          <Route path="/premium/workouts" element={<PremiumWorkouts />} />
         </Routes>
       </div>
 

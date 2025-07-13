@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Navigate, Link } from 'react-router-dom';
-import premiumStyles from '../styles/PremiumPageStyle';
+import premiumStyles from '../../styles/PremiumPageStyle';
 
 function PremiumPage() {
   const user = JSON.parse(localStorage.getItem('user'));

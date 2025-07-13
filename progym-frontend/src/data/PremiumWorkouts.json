@@ -1,0 +1,380 @@
+{
+  "chest": [
+    {
+      "name": "Flat Bench Press",
+      "target": "Chest, Triceps",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 8-10 reps",
+      "gif": "flat_bench_press.gif"
+    },
+    {
+      "name": "Incline Bench Press",
+      "target": "Upper Chest, Triceps",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 8-10 reps",
+      "gif": "incline_bench_press.gif"
+    },
+    {
+      "name": "Decline Bench Press",
+      "target": "Lower Chest, Triceps",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 8-10 reps",
+      "gif": "decline_bench_press.gif"
+    },
+    {
+      "name": "Dumbbell Press",
+      "target": "Chest, Shoulders",
+      "equipment": "Dumbbells",
+      "setsReps": "4 sets of 10-12 reps",
+      "gif": "dumbbell_press.gif"
+    },
+    {
+      "name": "Pec Deck Fly",
+      "target": "Chest",
+      "equipment": "Machine",
+      "setsReps": "3 sets of 12-15 reps",
+      "gif": "pec_deck_fly.gif"
+    },
+    {
+      "name": "Cable Crossover",
+      "target": "Chest",
+      "equipment": "Cable Machine",
+      "setsReps": "3 sets of 12-15 reps",
+      "gif": "cable_crossover.gif"
+    },
+    {
+      "name": "Chest Stretch",
+      "target": "Chest Flexibility",
+      "equipment": "Bodyweight",
+      "setsReps": "3 sets of 30s hold",
+      "gif": "chest_stretch.gif"
+    },
+    {
+      "name": "Machine Chest Press",
+      "target": "Chest, Triceps",
+      "equipment": "Machine",
+      "setsReps": "4 sets of 10 reps",
+      "gif": "machine_chest_press.gif"
+    }
+  ],
+  "arms": [
+    {
+      "name": "Barbell Curl",
+      "target": "Biceps",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 8-12 reps",
+      "gif": "barbell_curl.gif"
+    },
+    {
+      "name": "Dumbbell Curl",
+      "target": "Biceps",
+      "equipment": "Dumbbells",
+      "setsReps": "4 sets of 10-12 reps",
+      "gif": "dumbbell_curl.gif"
+    },
+    {
+      "name": "Hammer Curl",
+      "target": "Biceps, Forearms",
+      "equipment": "Dumbbells",
+      "setsReps": "3 sets of 12 reps",
+      "gif": "hammer_curl.gif"
+    },
+    {
+      "name": "Preacher Curl",
+      "target": "Biceps",
+      "equipment": "Bench, EZ-Bar",
+      "setsReps": "3 sets of 10-12 reps",
+      "gif": "preacher_curl.gif"
+    },
+    {
+      "name": "Tricep Pushdown",
+      "target": "Triceps",
+      "equipment": "Cable Machine",
+      "setsReps": "4 sets of 12-15 reps",
+      "gif": "tricep_pushdown.gif"
+    },
+    {
+      "name": "Tricep Dips",
+      "target": "Triceps",
+      "equipment": "Parallel Bars",
+      "setsReps": "3 sets of 10-12 reps",
+      "gif": "tricep_dips.gif"
+    },
+    {
+      "name": "Skull Crusher",
+      "target": "Triceps",
+      "equipment": "EZ-Bar",
+      "setsReps": "3 sets of 10-12 reps",
+      "gif": "skull_crusher.gif"
+    }
+  ],
+  "back": [
+    {
+      "name": "Pull Ups",
+      "target": "Lats, Biceps",
+      "equipment": "Pull-up Bar",
+      "setsReps": "4 sets of max reps",
+      "gif": "pull_up.gif"
+    },
+    {
+      "name": "Lat Pulldown",
+      "target": "Lats",
+      "equipment": "Cable Machine",
+      "setsReps": "4 sets of 10-12 reps",
+      "gif": "lat_pulldown.gif"
+    },
+    {
+      "name": "Bent-Over Row",
+      "target": "Upper Back",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 8 reps",
+      "gif": "bent_over_row.gif"
+    },
+    {
+      "name": "T-Bar Row",
+      "target": "Middle Back",
+      "equipment": "T-Bar Machine",
+      "setsReps": "4 sets of 8-10 reps",
+      "gif": "t_bar_row.gif"
+    },
+    {
+      "name": "Seated Cable Row",
+      "target": "Back",
+      "equipment": "Cable Machine",
+      "setsReps": "4 sets of 10-12 reps",
+      "gif": "seated_cable_row.gif"
+    },
+    {
+      "name": "Hyperextension",
+      "target": "Lower Back",
+      "equipment": "Roman Chair",
+      "setsReps": "3 sets of 15 reps",
+      "gif": "back_extension.gif"
+    },
+    {
+      "name": "Deadlift",
+      "target": "Full Back, Hamstrings",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 6-8 reps",
+      "gif": "deadlift.gif"
+    }
+  ],
+  "legs": [
+    {
+      "name": "Back Squat",
+      "target": "Quads, Glutes",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 8-10 reps",
+      "gif": "back_squat.gif"
+    },
+    {
+      "name": "Front Squat",
+      "target": "Quads, Core",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 8 reps",
+      "gif": "front_squat.gif"
+    },
+    {
+      "name": "Goblet Squat",
+      "target": "Quads, Glutes",
+      "equipment": "Dumbbell",
+      "setsReps": "3 sets of 12 reps",
+      "gif": "goblet_squat.gif"
+    },
+    {
+      "name": "Leg Press",
+      "target": "Quads, Glutes",
+      "equipment": "Machine",
+      "setsReps": "4 sets of 10-12 reps",
+      "gif": "leg_press.gif"
+    },
+    {
+      "name": "Lunges",
+      "target": "Glutes, Hamstrings",
+      "equipment": "Dumbbells",
+      "setsReps": "3 sets of 12 reps each leg",
+      "gif": "lunges.gif"
+    },
+    {
+      "name": "Leg Extension",
+      "target": "Quads",
+      "equipment": "Machine",
+      "setsReps": "4 sets of 12-15 reps",
+      "gif": "leg_extension.gif"
+    },
+    {
+      "name": "Hamstring Curl",
+      "target": "Hamstrings",
+      "equipment": "Machine",
+      "setsReps": "4 sets of 12 reps",
+      "gif": "hamstring_curl.gif"
+    },
+    {
+      "name": "Calf Raise",
+      "target": "Calves",
+      "equipment": "Machine/Bodyweight",
+      "setsReps": "4 sets of 15-20 reps",
+      "gif": "calf_raise.gif"
+    }
+  ],
+  "shoulders": [
+    {
+      "name": "Overhead Press",
+      "target": "Deltoids, Triceps",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 8 reps",
+      "gif": "overhead_press.gif"
+    },
+    {
+      "name": "Dumbbell Shoulder Press",
+      "target": "Deltoids",
+      "equipment": "Dumbbells",
+      "setsReps": "4 sets of 10 reps",
+      "gif": "dumbbell_shoulder_press.gif"
+    },
+    {
+      "name": "Lateral Raise",
+      "target": "Side Deltoids",
+      "equipment": "Dumbbells",
+      "setsReps": "3 sets of 15 reps",
+      "gif": "lateral_raise.gif"
+    },
+    {
+      "name": "Front Raise",
+      "target": "Front Deltoids",
+      "equipment": "Dumbbells",
+      "setsReps": "3 sets of 12 reps",
+      "gif": "front_raise.gif"
+    },
+    {
+      "name": "Rear Delt Fly",
+      "target": "Rear Deltoids",
+      "equipment": "Dumbbells",
+      "setsReps": "3 sets of 12-15 reps",
+      "gif": "rear_delt_fly.gif"
+    },
+    {
+      "name": "Cable Face Pull",
+      "target": "Rear Deltoids",
+      "equipment": "Cable Machine",
+      "setsReps": "3 sets of 15 reps",
+      "gif": "face_pull.gif"
+    },
+    {
+      "name": "Machine Shoulder Press",
+      "target": "Deltoids",
+      "equipment": "Machine",
+      "setsReps": "4 sets of 10 reps",
+      "gif": "machine_shoulder_press.gif"
+    }
+  ],
+  "core": [
+    {
+      "name": "Crunches",
+      "target": "Abdominals",
+      "equipment": "Bodyweight",
+      "setsReps": "4 sets of 20 reps",
+      "gif": "crunches.gif"
+    },
+    {
+      "name": "Plank",
+      "target": "Core, Lower Back",
+      "equipment": "Bodyweight",
+      "setsReps": "3 sets of 60 seconds",
+      "gif": "plank.gif"
+    },
+    {
+      "name": "Russian Twist",
+      "target": "Obliques",
+      "equipment": "Medicine Ball",
+      "setsReps": "3 sets of 20 reps",
+      "gif": "russian_twist.gif"
+    },
+    {
+      "name": "Leg Raise",
+      "target": "Lower Abdominals",
+      "equipment": "Bodyweight",
+      "setsReps": "4 sets of 15 reps",
+      "gif": "leg_raise.gif"
+    },
+    {
+      "name": "Bicycle Crunch",
+      "target": "Abdominals, Obliques",
+      "equipment": "Bodyweight",
+      "setsReps": "3 sets of 20 reps",
+      "gif": "bicycle_crunch.gif"
+    },
+    {
+      "name": "Cable Woodchopper",
+      "target": "Obliques",
+      "equipment": "Cable Machine",
+      "setsReps": "3 sets of 12 reps each side",
+      "gif": "woodchopper.gif"
+    },
+    {
+      "name": "Machine Crunch",
+      "target": "Abdominals",
+      "equipment": "Machine",
+      "setsReps": "4 sets of 15 reps",
+      "gif": "machine_crunch.gif"
+    }
+  ],
+  "full body": [
+    {
+      "name": "Burpees",
+      "target": "Full Body",
+      "equipment": "Bodyweight",
+      "setsReps": "3 sets of 15 reps",
+      "gif": "burpees.gif"
+    },
+    {
+      "name": "Deadlift",
+      "target": "Full Body, Hamstrings",
+      "equipment": "Barbell",
+      "setsReps": "4 sets of 6 reps",
+      "gif": "deadlift.gif"
+    },
+    {
+      "name": "Thruster",
+      "target": "Full Body",
+      "equipment": "Barbell",
+      "setsReps": "3 sets of 10 reps",
+      "gif": "thruster.gif"
+    },
+    {
+      "name": "Kettlebell Swing",
+      "target": "Glutes, Core, Shoulders",
+      "equipment": "Kettlebell",
+      "setsReps": "4 sets of 20 reps",
+      "gif": "kettlebell_swing.gif"
+    },
+    {
+      "name": "Clean and Press",
+      "target": "Full Body",
+      "equipment": "Barbell",
+      "setsReps": "3 sets of 8 reps",
+      "gif": "clean_and_press.gif"
+    },
+    {
+      "name": "Snatch",
+      "target": "Full Body",
+      "equipment": "Barbell",
+      "setsReps": "3 sets of 6 reps",
+      "gif": "snatch.gif"
+    },
+    {
+      "name": "Mountain Climbers",
+      "target": "Core, Cardio",
+      "equipment": "Bodyweight",
+      "setsReps": "3 sets of 30s",
+      "gif": "mountain_climbers.gif"
+    },
+    {
+      "name": "Jumping Jacks",
+      "target": "Cardio",
+      "equipment": "Bodyweight",
+      "setsReps": "3 sets of 30s",
+      "gif": "jumping_jacks.gif"
+    }
+  ]
+}
