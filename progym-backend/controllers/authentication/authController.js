@@ -1,3 +1,12 @@
+// Folder Structure:
+// progym-backend/controllers/authentication/
+// ├── registerUser.js
+// ├── loginUser.js
+// ├── upgradeToPremium.js
+// ├── updateProfile.js
+// ├── adminController.js
+// └── authController.js
+
 // File: authController.js
 // Path: ./controllers/authentication/authController.js
 

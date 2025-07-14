@@ -7,7 +7,7 @@ const {
   loginUser,
   upgradeToPremium,
   updateProfile, // 👈 add this
-} = require('../controllers/authController');
+} = require('../controllers/authentication/authController');
 
 // @route   POST /api/auth/register
 // @desc    Register a new user
