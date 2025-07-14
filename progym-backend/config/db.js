@@ -15,6 +15,10 @@ let pool;
 async function connectDB() {
   try {
     // Create a pool of connections to improve performance and manage concurrent queries
+
+    // A connection pool keeps a set of open MySQL connections ready to use, so your app can borrow one for a query instead of opening a new connection each time.
+    //By capping concurrent connections and queuing extras, it boosts performance and prevents your database from being overwhelmed.
+
     pool = mysql.createPool({
       host: process.env.DB_HOST || 'localhost',   // Database host address
       user: process.env.DB_USER || 'root',        // Database username
@@ -27,7 +31,7 @@ async function connectDB() {
 
     // Test the connection by obtaining one connection from the pool
     const conn = await pool.getConnection();
-    console.log('Connected to MySQL Database');  // Success message
+    console.log('Connected to MySQL Database');  // Success message to console
 
     // Release the test connection back into the pool for reuse
     conn.release();
