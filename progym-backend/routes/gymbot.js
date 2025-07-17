@@ -4,7 +4,7 @@ const {
   askGymBot,
   startNewSession,
   getSessionsByUser,
-} = require('../controllers/gymbotController');
+} = require('../controllers/gymbot/gymBot');
 
 // POST /api/gymbot/ask
 router.post('/ask', askGymBot);
