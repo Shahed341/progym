@@ -1,10 +1,19 @@
-const trackWorkoutStyles = {
+// Path: progym-frontend/src/styles/TrackWorkout.js
+
+const colors = {
+  pageBg: '#fcf9f1ff',     // light beige for page background
+  cardBg: '#1e1e1e',     // dark panels, titles, and sidebar
+  accent: '#f03238ff',   // bold red accent
+  white: '#FFFFFF',      // text on dark bg
+};
+
+const trackWorkout = {
   container: {
-    padding: '2rem 1.5rem',       // ✅ Space on left/right while full width
+    padding: '2rem 1.5rem',
     width: '100%',
     margin: 0,
-    backgroundColor: '#ffffff',
-    color: '#1A3636',
+    backgroundColor: colors.pageBg,
+    color: colors.cardBg,
     minHeight: '100vh',
     boxSizing: 'border-box',
   },
@@ -14,16 +23,14 @@ const trackWorkoutStyles = {
     fontWeight: 'bold',
     marginBottom: '2rem',
     textAlign: 'center',
-    background: 'linear-gradient(to right, #D6BD98, #fcd34d)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    color: colors.accent,
   },
 
   fixedCategoryHeader: {
     position: 'sticky',
     top: 0,
     zIndex: 50,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.pageBg,
     paddingBottom: '1rem',
     marginBottom: '1rem',
   },
@@ -42,10 +49,10 @@ const trackWorkoutStyles = {
     justifyContent: 'space-between',
     padding: '1rem',
     transition: 'transform 0.3s ease',
-    border: `2px solid ${isSelected ? '#D6BD98' : '#677D6A'}`,
+    border: `2px solid ${isSelected ? colors.accent : '#677D6A'}`,
     borderRadius: '1rem',
-    backgroundColor: isSelected ? '#fef3c7' : '#f3f4f6',
-    color: isSelected ? '#1A3636' : '#40534C',
+    backgroundColor: isSelected ? '#ffecec' : '#f7f7f7',
+    color: isSelected ? colors.cardBg : '#40534C',
     cursor: 'pointer',
     boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
   }),
@@ -72,9 +79,9 @@ const trackWorkoutStyles = {
   },
 
   dropdown: {
-    border: '1px solid #d1d5db',
-    backgroundColor: '#f3f4f6',
-    color: '#1f2937',
+    border: `1px solid ${colors.accent}`,
+    backgroundColor: '#ffffff',
+    color: colors.cardBg,
     padding: '0.5rem',
     borderRadius: '0.375rem',
   },
@@ -88,21 +95,21 @@ const trackWorkoutStyles = {
 
   exerciseCard: (isSelected) => ({
     padding: '1rem',
-    border: `2px solid ${isSelected ? '#D6BD98' : '#9ca3af'}`,
+    border: `2px solid ${isSelected ? colors.accent : '#b0b0b0'}`,
     borderRadius: '0.5rem',
     textAlign: 'center',
     cursor: 'pointer',
-    backgroundColor: isSelected ? '#f5f5dc' : '#e5e7eb',
-    color: isSelected ? '#1A3636' : '#40534C',
+    backgroundColor: isSelected ? '#fef0f0' : '#ececec',
+    color: isSelected ? colors.cardBg : '#555',
     fontWeight: 'bold',
     transition: 'all 0.3s ease-in-out',
   }),
 
   inputPanel: {
     padding: '1.5rem',
-    border: '1px solid #d1d5db',
+    border: `1px solid ${colors.accent}`,
     borderRadius: '0.75rem',
-    backgroundColor: '#f9fafb',
+    backgroundColor: '#f9f9f9',
     marginBottom: '2rem',
   },
 
@@ -114,21 +121,21 @@ const trackWorkoutStyles = {
   },
 
   inputPremium: {
-    border: '1px solid #D6BD98',
-    backgroundColor: '#ffffff',
-    color: '#1A3636',
+    border: `1px solid ${colors.accent}`,
+    backgroundColor: colors.white,
+    color: colors.cardBg,
     padding: '0.75rem',
     borderRadius: '0.5rem',
     fontWeight: '500',
-    boxShadow: '0 1px 4px rgba(103, 125, 106, 0.2)',
+    boxShadow: '0 1px 4px rgba(240, 50, 56, 0.1)',
     transition: '0.3s ease',
   },
 
   button: {
     marginTop: '1rem',
     padding: '0.75rem 1.25rem',
-    backgroundColor: '#D6BD98',
-    color: '#1A3636',
+    backgroundColor: colors.accent,
+    color: colors.white,
     fontWeight: 'bold',
     border: 'none',
     borderRadius: '0.5rem',
@@ -137,15 +144,15 @@ const trackWorkoutStyles = {
   },
 
   buttonHover: {
-    backgroundColor: '#caa97c',
+    backgroundColor: '#c92c31',
     transform: 'scale(1.03)',
-    boxShadow: '0 4px 12px rgba(214, 189, 152, 0.4)',
+    boxShadow: '0 4px 12px rgba(240, 50, 56, 0.3)',
   },
 
   subTitle: {
     fontSize: '1.25rem',
     fontWeight: '600',
-    color: '#1A3636',
+    color: colors.cardBg,
     marginBottom: '0.75rem',
     textAlign: 'left',
   },
@@ -155,11 +162,9 @@ const trackWorkoutStyles = {
     fontWeight: 'bold',
     marginTop: '3rem',
     marginBottom: '1rem',
-    background: 'linear-gradient(to right, #D6BD98, #fcd34d)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
+    color: colors.accent,
     textAlign: 'center',
   },
 };
 
-export default trackWorkoutStyles;
+export default trackWorkout;
