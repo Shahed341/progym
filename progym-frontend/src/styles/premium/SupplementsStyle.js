@@ -1,18 +1,18 @@
+// styles/premium/SupplementPageStyles.js
+
 const colors = {
-  pageBackground: '#f5f2eb',
-  panelBackground: '#2F2F2F',
-  accentRed: '#C0392B',
-  textWhite: '#FFFFFF',
+  pageBg: '#ece9e2',
+  cardBg: '#1e1e1e',
+  accent: '#f03238ff',
+  white: '#FFFFFF',
 };
 
 const cardShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
-const gradientDark = 'linear-gradient(145deg, #2f2f2f, #3a3a3a)';
-const gradientSoft = 'linear-gradient(145deg, #3e3e3e, #4a4a4a)';
-const gradientCardOverlay = 'linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.65))';
+const gradientOverlay = 'linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.65))';
 
-const styles = {
+const SupplementPageStyles = {
   pageContainer: {
-    backgroundColor: colors.pageBackground,
+    backgroundColor: colors.pageBg,
     minHeight: '100vh',
     paddingBottom: '40px',
     fontFamily: 'Arial, sans-serif',
@@ -21,51 +21,42 @@ const styles = {
   heroSection: {
     position: 'relative',
     height: '100vh',
-    overflow: 'hidden',
+    backgroundImage: "url('/images/supplements/hero-gym-realistic.png')",
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
   },
 
-  heroBackground: {
-    backgroundImage: "url('/images/supplements/hero-gym-realistic.png')",
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+  heroOverlay: {
     position: 'absolute',
     top: 0,
     left: 0,
     width: '100%',
     height: '100%',
-    zIndex: 0,
-    filter: 'brightness(0.5)',
-    backdropFilter: 'blur(4px)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1,
   },
 
-  heroOverlay: {
-    position: 'relative',
-    zIndex: 1,
-    color: colors.textWhite,
-    textAlign: 'center',
-    padding: '20px',
+  heroContent: {
+    zIndex: 2,
     maxWidth: '900px',
-    margin: '0 auto',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100%',
+    padding: '20px',
+    color: colors.white,
   },
 
   heroTitle: {
     fontSize: '3rem',
     fontWeight: 'bold',
-    marginBottom: '10px',
+    color: colors.accent,
+    marginBottom: '15px',
   },
 
   heroSubtitle: {
     fontSize: '1.25rem',
+    color: colors.white,
     maxWidth: '600px',
     margin: '0 auto 30px auto',
   },
@@ -87,17 +78,13 @@ const styles = {
   },
 
   buttonActive: {
-    backgroundColor: colors.accentRed,
-    color: colors.textWhite,
+    backgroundColor: colors.accent,
+    color: colors.cardBg,
   },
 
   buttonInactive: {
-    backgroundColor: colors.textWhite,
-    color: colors.panelBackground,
-  },
-
-  buttonHover: {
-    transform: 'scale(1.1)',
+    backgroundColor: colors.white,
+    color: colors.cardBg,
   },
 
   contentGrid: {
@@ -111,13 +98,12 @@ const styles = {
     alignItems: 'stretch',
   },
 
-  featuredCard: {
+  card: {
     flex: '1 1 300px',
-    background: `${gradientCardOverlay}, ${gradientDark}`,
-    color: colors.textWhite,
+    background: `${gradientOverlay}, ${colors.cardBg}`,
+    color: colors.white,
     borderRadius: '16px',
     padding: '20px',
-    textAlign: 'center',
     boxShadow: cardShadow,
     display: 'flex',
     flexDirection: 'column',
@@ -133,46 +119,28 @@ const styles = {
 
   cardTitle: {
     fontSize: '1.5rem',
+    color: colors.accent,
     marginBottom: '10px',
+  },
+
+  list: {
+    paddingLeft: '20px',
+    textAlign: 'left',
+    marginTop: '10px',
   },
 
   rightColumn: {
     flex: '1 1 300px',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'space-between',
     gap: '20px',
-  },
-
-  benefitsCard: {
-    flex: 1,
-    background: `${gradientCardOverlay}, ${gradientSoft}`,
-    color: colors.textWhite,
-    borderRadius: '16px',
-    padding: '20px',
-    boxShadow: cardShadow,
-  },
-
-  sideEffectsCard: {
-    flex: 1,
-    background: `${gradientCardOverlay}, ${gradientSoft}`,
-    color: colors.textWhite,
-    borderRadius: '16px',
-    padding: '20px',
-    boxShadow: cardShadow,
-  },
-
-  list: {
-    paddingLeft: '20px',
-    marginTop: '10px',
-    textAlign: 'left',
   },
 
   usageCard: {
     maxWidth: '900px',
     margin: '0 auto',
-    background: `${gradientCardOverlay}, ${gradientDark}`,
-    color: colors.textWhite,
+    background: `${gradientOverlay}, ${colors.cardBg}`,
+    color: colors.white,
     padding: '30px',
     borderRadius: '16px',
     marginTop: '40px',
@@ -180,4 +148,4 @@ const styles = {
   },
 };
 
-export default styles;
+export default SupplementsStyles;
