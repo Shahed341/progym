@@ -19,31 +19,31 @@ function PremiumPage() {
     {
       title: 'Progress Charts',
       path: '/premium/progress-charts',
-      image: '/images/icons/progressCharts.png', // ✅ Use actual icon from /public/images/icons
+      image: '/images/icons/progressCharts.png',
       description: 'Visualize your fitness journey with detailed graphs and performance tracking.',
     },
     {
       title: 'AI GymBot Assistant',
       path: '/premium/gymbot',
-      image: '/images/icons/gymbot.png', // ✅ Use actual icon
+      image: '/images/icons/gymbot.png',
       description: 'Chat with your smart GymBot for personalized routines and motivation.',
     },
     {
       title: 'Advanced Meal Planning',
       path: '/premium/meal-planner',
-      image: '/images/icons/mealPlans.png', // ✅ Use actual icon
+      image: '/images/icons/mealPlans.png',
       description: 'Plan and track nutrient-rich meals tailored to your goals and macros.',
     },
     {
       title: 'Supplement Tracker',
       path: '/premium/supplements',
-      image: '/images/icons/supplementsGuide.png', // ✅ Use actual icon
+      image: '/images/icons/supplementsGuide.png',
       description: 'Stay consistent with supplement intake and get reminders daily.',
     },
     {
       title: 'Premium Workout Routines',
       path: '/premium/workouts',
-      image: '/images/icons/premiumWorkouts.png', // ✅ Use actual icon
+      image: '/images/icons/premiumWorkouts.png',
       description: 'Unlock exclusive routines designed by top trainers for serious gains.',
     },
   ];
