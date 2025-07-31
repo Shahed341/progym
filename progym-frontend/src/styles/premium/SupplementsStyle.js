@@ -10,7 +10,7 @@ const colors = {
 const cardShadow = '0 10px 25px rgba(0, 0, 0, 0.3)';
 const gradientOverlay = 'linear-gradient(135deg, rgba(0,0,0,0.4), rgba(0,0,0,0.65))';
 
-const SupplementPageStyles = {
+const SupplementsStyles = {
   pageContainer: {
     backgroundColor: colors.pageBg,
     minHeight: '100vh',
