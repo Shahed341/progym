@@ -26,6 +26,8 @@ import {
   Scatter,
   ZAxis,
 } from 'recharts';
+
+// Charts styles
 import styles from '../styles/WorkoutCharts';
 
 const COLORS = ['#1A3636', '#40534C', '#677D6A', '#D6BD98', '#a0aec0'];
